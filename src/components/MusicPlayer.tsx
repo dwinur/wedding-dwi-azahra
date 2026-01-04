@@ -5,30 +5,44 @@ import { Music, Pause, Play } from 'lucide-react'
 
 interface MusicPlayerProps {
   src?: string
-  onPlayerReady?: (playFn: () => Promise<void>) => void
+  autoPlay?: boolean
 }
 
-export function MusicPlayer({ src = '/audios/backsound-2.mp3', onPlayerReady }: MusicPlayerProps) {
+export function MusicPlayer({ src = '/audios/backsound-2.mp3', autoPlay = true }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
-    const playMusic = async () => {
-      if (audioRef.current && !isPlaying) {
+    // Try to autoplay when component mounts
+    if (autoPlay && audioRef.current) {
+      const playAudio = async () => {
         try {
-          await audioRef.current.play()
+          await audioRef.current?.play()
           setIsPlaying(true)
         } catch (error) {
-          console.log('Could not start playing:', error)
+          console.log('Autoplay blocked, waiting for user interaction')
         }
       }
+      playAudio()
     }
+  }, [autoPlay])
 
-    // Expose play function to parent
-    if (onPlayerReady) {
-      onPlayerReady(playMusic)
+  // Listen for audio play/pause events
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
+
+    audio.addEventListener('play', handlePlay)
+    audio.addEventListener('pause', handlePause)
+
+    return () => {
+      audio.removeEventListener('play', handlePlay)
+      audio.removeEventListener('pause', handlePause)
     }
-  }, [onPlayerReady, isPlaying])
+  }, [])
 
   const togglePlay = async () => {
     if (audioRef.current) {

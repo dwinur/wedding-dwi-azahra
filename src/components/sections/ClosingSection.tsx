@@ -28,11 +28,7 @@ export function ClosingSection() {
         
         {/* Quote */}
         <blockquote className="border-l-4 border-rose-400 pl-6 italic text-slate-200 mb-12 text-left">
-          &ldquo;Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, 
-          agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.&rdquo;
-          <footer className="text-sm text-slate-400 mt-2 not-italic">
-            - QS. Ar-Rum: 21
-          </footer>
+          &ldquo;Ya Allah, berkahilah kami dalam pernikahan ini, dan jadikanlah rumah tangga kami sakinah, mawaddah, wa rahmah.&rdquo;
         </blockquote>
         
         {/* Decorative Line */}

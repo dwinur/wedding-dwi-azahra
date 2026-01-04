@@ -25,7 +25,6 @@ export default function GuestPage() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const sectionsRef = useRef<HTMLDivElement[]>([])
-  const playMusicRef = useRef<(() => Promise<void>) | null>(null)
 
   // Fetch guest data
   const guest = GuestsService.GetGuestDetail.useQuery(guestId as string)
@@ -34,12 +33,8 @@ export default function GuestPage() {
   const guestIdValue = guest.data?.id || (guestId as string)
   const groupIdValue = guest.data?.groupId || ''
 
-  const handleOpenInvitation = async () => {
+  const handleOpenInvitation = () => {
     setIsInvitationOpen(true)
-    // Play music when opening invitation
-    if (playMusicRef.current) {
-      await playMusicRef.current()
-    }
   }
 
   const scrollToSection = (index: number) => {
@@ -97,7 +92,7 @@ export default function GuestPage() {
       </div>
 
       {/* Music Player */}
-      <MusicPlayer onPlayerReady={(playFn) => { playMusicRef.current = playFn }} />
+      <MusicPlayer />
 
       {/* Sections */}
       <div className="relative z-10">

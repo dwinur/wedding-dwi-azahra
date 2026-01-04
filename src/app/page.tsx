@@ -19,14 +19,9 @@ export default function Home() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const sectionsRef = useRef<HTMLDivElement[]>([])
-  const playMusicRef = useRef<(() => Promise<void>) | null>(null)
 
-  const handleOpenInvitation = async () => {
+  const handleOpenInvitation = () => {
     setIsInvitationOpen(true)
-    // Play music when opening invitation
-    if (playMusicRef.current) {
-      await playMusicRef.current()
-    }
   }
 
   const scrollToSection = (index: number) => {
@@ -84,7 +79,7 @@ export default function Home() {
       </div>
 
       {/* Music Player */}
-      <MusicPlayer onPlayerReady={(playFn) => { playMusicRef.current = playFn }} />
+      <MusicPlayer />
 
       {/* Sections */}
       <div className="relative z-10">
