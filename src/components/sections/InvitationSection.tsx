@@ -26,6 +26,25 @@ export function InvitationSection() {
           {/* Divider */}
           <div className="w-24 h-px bg-rose-400 mx-auto mb-12" />
           
+          {/* Surat Ar-Rum Ayat 21 */}
+          <div className="mb-12">
+            <p 
+              className="text-2xl md:text-3xl text-white mb-6 leading-loose"
+              style={{ fontFamily: "'Amiri', 'Traditional Arabic', serif" }}
+            >
+              وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً ۗاِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ
+            </p>
+            <p className="text-slate-300 text-sm md:text-base italic">
+              "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+            </p>
+            <p className="text-slate-400 text-xs md:text-sm mt-2">
+              (QS. Ar-Rum: 21)
+            </p>
+          </div>
+          
+          {/* Divider */}
+          <div className="w-24 h-px bg-rose-400 mx-auto mb-12" />
+          
           {/* Invitation Text */}
           <div className="space-y-4 text-slate-200 text-lg md:text-xl leading-relaxed">
             <p>Dengan memohon rahmat dan ridho Allah SWT,</p>

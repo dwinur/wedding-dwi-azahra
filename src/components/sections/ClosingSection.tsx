@@ -43,11 +43,7 @@ export function ClosingSection() {
           className="text-3xl text-rose-400 mb-4"
           style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
         >
-          Upi & Dwi
-        </p>
-        
-        <p className="text-slate-300">
-          Kami tidak sabar untuk merayakan bersama Anda!
+          Azahra & Dwi
         </p>
         
         {/* RSVP Button */}

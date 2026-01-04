@@ -5,15 +5,15 @@ import { Music, Pause, Play } from 'lucide-react'
 
 interface MusicPlayerProps {
   src?: string
+  onPlayerReady?: (playFn: () => Promise<void>) => void
 }
 
-export function MusicPlayer({ src = '/audios/backsound-2.mp3' }: MusicPlayerProps) {
+export function MusicPlayer({ src = '/audios/backsound-2.mp3', onPlayerReady }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
-    // Add click listener to start playing on first user interaction
-    const handleFirstInteraction = async () => {
+    const playMusic = async () => {
       if (audioRef.current && !isPlaying) {
         try {
           await audioRef.current.play()
@@ -24,12 +24,11 @@ export function MusicPlayer({ src = '/audios/backsound-2.mp3' }: MusicPlayerProp
       }
     }
 
-    document.addEventListener('click', handleFirstInteraction, { once: true })
-    
-    return () => {
-      document.removeEventListener('click', handleFirstInteraction)
+    // Expose play function to parent
+    if (onPlayerReady) {
+      onPlayerReady(playMusic)
     }
-  }, [isPlaying])
+  }, [onPlayerReady, isPlaying])
 
   const togglePlay = async () => {
     if (audioRef.current) {
