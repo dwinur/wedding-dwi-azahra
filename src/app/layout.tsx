@@ -14,12 +14,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Wedding Invitation - Upi & Dwi",
-  description: "Undangan Pernikahan Upi & Dwi - Minggu, 12 April 2026",
+  title: "Wedding Invitation - Azahra & Dwi",
+  description: "Undangan Pernikahan Azahra & Dwi - Minggu, 12 April 2026",
+  icons: {
+    icon: '/images/cover-couple.png',
+    apple: '/images/cover-couple.png',
+  },
   openGraph: {
-    title: "Wedding Invitation - Upi & Dwi",
-    description: "Anda diundang ke pernikahan Upi & Dwi",
+    title: "Wedding Invitation - Azahra & Dwi",
+    description: "Anda diundang ke pernikahan Azahra & Dwi",
     type: "website",
+    images: '/images/cover-couple.png',
   },
 };
 
