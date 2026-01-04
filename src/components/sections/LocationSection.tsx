@@ -75,7 +75,7 @@ export function LocationSection() {
                   Ballroom Masjid Jami&apos; An-Noor Ciputat
                 </p>
                 <p className="text-slate-400 mt-2">
-                  Jl. Ir. H. Juanda No.1, Ciputat, Tangerang Selatan, Banten
+                  Jl. RE Martadinata No.60, Cipayung, Kec. Ciputat, Kota Tangerang Selatan, Banten 15411
                 </p>
               </div>
             </div>

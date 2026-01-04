@@ -26,16 +26,18 @@ export function CountdownSection() {
   const eventDetails = {
     title: 'Pernikahan Azahra & Dwi',
     description: 'Acara Pernikahan Azahra Emiria & Dwi Nurhadiansyah',
-    location: 'jl. Merak Blok 92 No. 3, Meruya Ilir Jakarta Barat 11620',
+    location: "Ballroom Masjid Jami' An-Noor Ciputat, Jl. RE Martadinata No.60, Cipayung, Kec. Ciputat, Kota Tangerang Selatan, Banten 15411",
     startDate: '2026-04-12T09:00:00+07:00',
-    endDate: '2026-04-12T16:00:00+07:00'
+    endDate: '2026-04-12T16:00:00+07:00',
+    mapsUrl: 'https://maps.google.com/?q=Masjid+Jami+An-Noor+Ciputat+Jl.+RE+Martadinata+No.60+Cipayung+Ciputat+Tangerang+Selatan'
   }
 
   const addToGoogleCalendar = () => {
     const start = new Date(eventDetails.startDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
     const end = new Date(eventDetails.endDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+    const descriptionWithMap = `${eventDetails.description}\n\nGoogle Maps: ${eventDetails.mapsUrl}`
     
-    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${start}/${end}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${start}/${end}&details=${encodeURIComponent(descriptionWithMap)}&location=${encodeURIComponent(eventDetails.location)}`
     
     window.open(url, '_blank')
     setShowCalendarOptions(false)
@@ -44,8 +46,9 @@ export function CountdownSection() {
   const addToOutlook = () => {
     const start = new Date(eventDetails.startDate).toISOString()
     const end = new Date(eventDetails.endDate).toISOString()
+    const descriptionWithMap = `${eventDetails.description}\n\nGoogle Maps: ${eventDetails.mapsUrl}`
     
-    const url = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&subject=${encodeURIComponent(eventDetails.title)}&startdt=${start}&enddt=${end}&body=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`
+    const url = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&subject=${encodeURIComponent(eventDetails.title)}&startdt=${start}&enddt=${end}&body=${encodeURIComponent(descriptionWithMap)}&location=${encodeURIComponent(eventDetails.location)}`
     
     window.open(url, '_blank')
     setShowCalendarOptions(false)
@@ -53,8 +56,8 @@ export function CountdownSection() {
 
   const generateICS = () => {
     const eventTitle = 'Pernikahan Azahra & Dwi'
-    const eventDescription = 'Acara Pernikahan Azahra Emiria & Dwi Nurhadiansyah'
-    const eventLocation = 'jl. Merak Blok 92 No. 3, Meruya Ilir Jakarta Barat 11620'
+    const eventDescription = `Acara Pernikahan Azahra Emiria & Dwi Nurhadiansyah\n\nGoogle Maps: ${eventDetails.mapsUrl}`
+    const eventLocation = "Ballroom Masjid Jami' An-Noor Ciputat, Jl. RE Martadinata No.60, Cipayung, Kec. Ciputat, Kota Tangerang Selatan, Banten 15411"
     const startDate = '20260412T020000Z' // 09:00 WIB = 02:00 UTC
     const endDate = '20260412T090000Z' // 16:00 WIB = 09:00 UTC
 
