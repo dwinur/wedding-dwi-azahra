@@ -1,65 +1,122 @@
-import Image from "next/image";
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import { OpeningSection } from '@/components/sections/OpeningSection'
+import { CoverSection } from '@/components/sections/CoverSection'
+import { FamilySection } from '@/components/sections/FamilySection'
+import { InvitationSection } from '@/components/sections/InvitationSection'
+import { EventDetailsSection } from '@/components/sections/EventDetailsSection'
+import { LocationSection } from '@/components/sections/LocationSection'
+import { CountdownSection } from '@/components/sections/CountdownSection'
+import { WeddingGiftSection } from '@/components/sections/WeddingGiftSection'
+import { WishesSection } from '@/components/sections/WishesSection'
+import { ClosingSection } from '@/components/sections/ClosingSection'
+import { FooterMenu } from '@/components/FooterMenu'
+import { NavigationDots } from '@/components/NavigationDots'
+import { MusicPlayer } from '@/components/MusicPlayer'
 
 export default function Home() {
+  const [isInvitationOpen, setIsInvitationOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState(0)
+  const sectionsRef = useRef<HTMLDivElement[]>([])
+
+  const handleOpenInvitation = () => {
+    setIsInvitationOpen(true)
+  }
+
+  const scrollToSection = (index: number) => {
+    sectionsRef.current[index]?.scrollIntoView({ behavior: 'smooth' })
+    setActiveSection(index)
+  }
+
+  const handleScrollToNext = () => {
+    scrollToSection(1)
+  }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+
+      sectionsRef.current.forEach((section, index) => {
+        if (section) {
+          const sectionTop = section.offsetTop
+          const sectionBottom = sectionTop + section.offsetHeight
+
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            setActiveSection(index)
+          }
+        }
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Jika invitation belum dibuka, tampilkan Opening Section
+  if (!isInvitationOpen) {
+    return (
+      <div className="min-h-screen" style={{ backgroundColor: '#0f172a' }}>
+        <OpeningSection onOpenInvitation={handleOpenInvitation} />
+      </div>
+    )
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen" style={{ backgroundColor: '#0f172a' }}>
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-30"
+        >
+          <source src="/videos/cinematic.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/70 to-slate-900" />
+      </div>
+
+      {/* Music Player */}
+      <MusicPlayer />
+
+      {/* Sections */}
+      <div className="relative z-10">
+        <div ref={(el) => { if (el) sectionsRef.current[0] = el }}>
+          <CoverSection onScrollToNext={handleScrollToNext} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div ref={(el) => { if (el) sectionsRef.current[1] = el }}>
+          <InvitationSection />
         </div>
-      </main>
+        <div ref={(el) => { if (el) sectionsRef.current[2] = el }}>
+          <FamilySection />
+        </div>
+        <div ref={(el) => { if (el) sectionsRef.current[3] = el }}>
+          <EventDetailsSection />
+        </div>
+        <div ref={(el) => { if (el) sectionsRef.current[4] = el }}>
+          <LocationSection />
+        </div>
+        <div ref={(el) => { if (el) sectionsRef.current[5] = el }}>
+          <CountdownSection />
+        </div>
+        <div ref={(el) => { if (el) sectionsRef.current[6] = el }}>
+          <WeddingGiftSection />
+        </div>
+        <div ref={(el) => { if (el) sectionsRef.current[7] = el }}>
+          <WishesSection />
+        </div>
+        <div ref={(el) => { if (el) sectionsRef.current[8] = el }} className="pb-20">
+          <ClosingSection />
+        </div>
+      </div>
+
+      {/* Footer Menu */}
+      <FooterMenu activeSection={activeSection} onNavigate={scrollToSection} />
+
+      {/* Navigation Dots */}
+      <NavigationDots activeSection={activeSection} onNavigate={scrollToSection} totalSections={9} />
     </div>
-  );
+  )
 }

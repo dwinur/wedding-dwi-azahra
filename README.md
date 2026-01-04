@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💒 Wedding Invitation - Upi & Dwi
 
-## Getting Started
+Undangan pernikahan digital modern dengan Next.js, TailwindCSS, dan MongoDB.
 
-First, run the development server:
+## ✨ Features
+
+- 🎨 Modern UI dengan TailwindCSS
+- 📱 Responsive design (Mobile & Desktop)
+- 🎬 Background video cinematic
+- 🎵 Music player
+- 💬 Wishes/Ucapan dengan database MongoDB
+- 📍 Integrasi Google Maps
+- 🎁 Informasi wedding gift
+- 📊 Guest tracking & analytics
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Setup MongoDB Atlas
+
+1. Buat akun di [MongoDB Atlas](https://cloud.mongodb.com) (gratis)
+2. Buat cluster M0 (free tier)
+3. Buat database user
+4. Whitelist IP: `0.0.0.0/0`
+5. Copy connection string
+
+### 3. Setup Environment
+
+```bash
+# Copy .env.example ke .env.local
+cp .env.example .env.local
+
+# Edit .env.local dan tambahkan MongoDB connection string
+NEXT_PUBLIC_MONGODB_URL=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+```
+
+### 4. Setup Database
+
+Jalankan script setup di MongoDB Compass atau mongosh:
+- Buka file `scripts/mongodb-setup.js`
+- Copy-paste ke mongosh atau MongoDB Compass
+
+### 5. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+wedding-invitation/
+├── src/
+│   ├── app/
+│   │   ├── api/           # Backend API routes
+│   │   │   ├── guests/
+│   │   │   ├── wishes/
+│   │   │   └── ...
+│   │   ├── [guestId]/     # Dynamic guest page
+│   │   └── page.tsx       # Homepage
+│   ├── components/
+│   │   ├── sections/      # Page sections
+│   │   │   ├── CoverSection.tsx
+│   │   │   ├── FamilySection.tsx
+│   │   │   ├── WishesSection.tsx
+│   │   │   └── ...
+│   │   ├── FooterMenu.tsx
+│   │   ├── MusicPlayer.tsx
+│   │   └── Providers.tsx
+│   ├── configs/
+│   │   ├── axios/
+│   │   └── database/      # MongoDB connection
+│   ├── lib/
+│   │   ├── helpers/
+│   │   └── services/      # API services
+│   └── server/
+│       └── models/        # MongoDB models
+├── public/
+│   ├── images/            # Gallery & cover images
+│   ├── videos/            # Background video
+│   └── audios/            # Background music
+└── scripts/
+    └── mongodb-setup.js   # Database setup script
+```
 
-## Learn More
+## 🔗 URLs
 
-To learn more about Next.js, take a look at the following resources:
+- **Homepage**: `http://localhost:3000`
+- **Guest Page**: `http://localhost:3000/[guestId]`
+- **With Custom Name**: `http://localhost:3000/[guestId]?to=Nama%20Tamu`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: TailwindCSS
+- **Database**: MongoDB
+- **State Management**: TanStack Query (React Query)
+- **Icons**: Lucide React
+- **Animation**: Framer Motion
 
-## Deploy on Vercel
+## 📦 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Deploy ke Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push ke GitHub
+2. Import project di [Vercel](https://vercel.com)
+3. Set Environment Variables:
+   - `NEXT_PUBLIC_MONGODB_URL`
+4. Deploy!
+
+## 📄 License
+
+MIT License
+
+---
+
+Made with ❤️ for Upi & Dwi's Wedding
