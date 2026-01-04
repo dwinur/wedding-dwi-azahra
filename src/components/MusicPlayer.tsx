@@ -1,31 +1,65 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useImperativeHandle, forwardRef } from 'react'
 import { Music, Pause, Play } from 'lucide-react'
 
 interface MusicPlayerProps {
   src?: string
-  autoPlay?: boolean
 }
 
-export function MusicPlayer({ src = '/audios/backsound-2.mp3', autoPlay = true }: MusicPlayerProps) {
+export interface MusicPlayerRef {
+  play: () => Promise<void>
+  pause: () => void
+}
+
+export const MusicPlayer = forwardRef<MusicPlayerRef, MusicPlayerProps>(function MusicPlayer(
+  { src = '/audios/backsound-2.mp3' },
+  ref
+) {
   const [isPlaying, setIsPlaying] = useState(false)
+  const [autoplayAttempted, setAutoplayAttempted] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
+  // Expose play/pause methods to parent
+  useImperativeHandle(ref, () => ({
+    play: async () => {
+      if (audioRef.current) {
+        try {
+          await audioRef.current.play()
+          setIsPlaying(true)
+        } catch (error) {
+          console.log('Could not play:', error)
+        }
+      }
+    },
+    pause: () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        setIsPlaying(false)
+      }
+    }
+  }))
+
+  // Try autoplay on mount (works on Chrome/Android, fails on iOS/Safari)
   useEffect(() => {
-    // Try to autoplay when component mounts
-    if (autoPlay && audioRef.current) {
-      const playAudio = async () => {
+    if (!autoplayAttempted && audioRef.current) {
+      setAutoplayAttempted(true)
+      
+      const attemptAutoplay = async () => {
         try {
           await audioRef.current?.play()
           setIsPlaying(true)
+          console.log('Autoplay succeeded')
         } catch (error) {
           console.log('Autoplay blocked, waiting for user interaction')
+          // Autoplay blocked, will be triggered by user interaction
         }
       }
-      playAudio()
+      
+      // Small delay to ensure audio is loaded
+      setTimeout(attemptAutoplay, 500)
     }
-  }, [autoPlay])
+  }, [autoplayAttempted])
 
   // Listen for audio play/pause events
   useEffect(() => {
@@ -92,4 +126,4 @@ export function MusicPlayer({ src = '/audios/backsound-2.mp3', autoPlay = true }
       </div>
     </>
   )
-}
+})

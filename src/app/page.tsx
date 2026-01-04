@@ -13,16 +13,19 @@ import { WishesSection } from '@/components/sections/WishesSection'
 import { ClosingSection } from '@/components/sections/ClosingSection'
 import { FooterMenu } from '@/components/FooterMenu'
 import { NavigationDots } from '@/components/NavigationDots'
-import { MusicPlayer } from '@/components/MusicPlayer'
+import { MusicPlayer, type MusicPlayerRef } from '@/components/MusicPlayer'
 
 export default function Home() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false)
   const [isContentVisible, setIsContentVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const sectionsRef = useRef<HTMLDivElement[]>([])
+  const musicPlayerRef = useRef<MusicPlayerRef>(null)
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true)
+    // Play music on user interaction (Safari compatible)
+    musicPlayerRef.current?.play()
     // Delay content animation to sync with opening fade out
     setTimeout(() => {
       setIsContentVisible(true)
@@ -86,7 +89,7 @@ export default function Home() {
       </div>
 
       {/* Music Player */}
-      <MusicPlayer />
+      <MusicPlayer ref={musicPlayerRef} />
 
       {/* Sections */}
       <div className={`relative z-10 transition-all duration-1000 ease-out delay-200 ${

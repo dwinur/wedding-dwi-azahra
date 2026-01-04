@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { Calendar, ChevronDown } from 'lucide-react'
 
 interface TimeLeft {
   days: number
@@ -17,9 +18,82 @@ export function CountdownSection() {
     seconds: 0
   })
   const [mounted, setMounted] = useState(false)
+  const [showCalendarOptions, setShowCalendarOptions] = useState(false)
 
   // Wedding date: 12 April 2026, 09:00 WIB
   const weddingDate = new Date('2026-04-12T09:00:00+07:00').getTime()
+
+  const eventDetails = {
+    title: 'Pernikahan Azahra & Dwi',
+    description: 'Acara Pernikahan Azahra Emiria & Dwi Nurhadiansyah',
+    location: 'jl. Merak Blok 92 No. 3, Meruya Ilir Jakarta Barat 11620',
+    startDate: '2026-04-12T09:00:00+07:00',
+    endDate: '2026-04-12T16:00:00+07:00'
+  }
+
+  const addToGoogleCalendar = () => {
+    const start = new Date(eventDetails.startDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+    const end = new Date(eventDetails.endDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+    
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${start}/${end}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`
+    
+    window.open(url, '_blank')
+    setShowCalendarOptions(false)
+  }
+
+  const addToOutlook = () => {
+    const start = new Date(eventDetails.startDate).toISOString()
+    const end = new Date(eventDetails.endDate).toISOString()
+    
+    const url = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&subject=${encodeURIComponent(eventDetails.title)}&startdt=${start}&enddt=${end}&body=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`
+    
+    window.open(url, '_blank')
+    setShowCalendarOptions(false)
+  }
+
+  const generateICS = () => {
+    const eventTitle = 'Pernikahan Azahra & Dwi'
+    const eventDescription = 'Acara Pernikahan Azahra Emiria & Dwi Nurhadiansyah'
+    const eventLocation = 'jl. Merak Blok 92 No. 3, Meruya Ilir Jakarta Barat 11620'
+    const startDate = '20260412T020000Z' // 09:00 WIB = 02:00 UTC
+    const endDate = '20260412T090000Z' // 16:00 WIB = 09:00 UTC
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Wedding Invitation//Azahra & Dwi//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'X-WR-CALNAME:Pernikahan Azahra & Dwi',
+      'X-WR-TIMEZONE:Asia/Jakarta',
+      'BEGIN:VEVENT',
+      `DTSTART:${startDate}`,
+      `DTEND:${endDate}`,
+      `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`,
+      `SUMMARY:${eventTitle}`,
+      `DESCRIPTION:${eventDescription}`,
+      `LOCATION:${eventLocation}`,
+      'STATUS:CONFIRMED',
+      'SEQUENCE:0',
+      'BEGIN:VALARM',
+      'TRIGGER:-PT24H',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Reminder: Pernikahan Azahra & Dwi besok!',
+      'END:VALARM',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n')
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = 'pernikahan-azahra-dwi.ics'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(link.href)
+    setShowCalendarOptions(false)
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -41,7 +115,20 @@ export function CountdownSection() {
     calculateTimeLeft()
     const timer = setInterval(calculateTimeLeft, 1000)
 
-    return () => clearInterval(timer)
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      if (!target.closest('.relative')) {
+        setShowCalendarOptions(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      clearInterval(timer)
+      document.removeEventListener('click', handleClickOutside)
+    }
   }, [weddingDate])
 
   const timeBlocks = [
@@ -90,10 +177,48 @@ export function CountdownSection() {
 
         </div>
 
-        {/* Add to Calendar hint */}
-        <div className="text-center mt-8">
+        {/* Save the Date Button with Dropdown */}
+        <div className="text-center mt-8 space-y-4">
+          <div className="relative inline-block">
+            <button
+              onClick={() => setShowCalendarOptions(!showCalendarOptions)}
+              className="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-full hover:from-rose-600 hover:to-pink-600 transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-3"
+            >
+              <Calendar size={20} />
+              Save the Date
+              <ChevronDown size={18} className={`transition-transform ${showCalendarOptions ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Dropdown Menu */}
+            {showCalendarOptions && (
+              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-slate-800 rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-64 z-50">
+                <button
+                  onClick={addToGoogleCalendar}
+                  className="w-full px-6 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-b border-white/5"
+                >
+                  <Calendar size={18} className="text-rose-400" />
+                  <span>Google Calendar</span>
+                </button>
+                <button
+                  onClick={addToOutlook}
+                  className="w-full px-6 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-b border-white/5"
+                >
+                  <Calendar size={18} className="text-blue-400" />
+                  <span>Outlook Calendar</span>
+                </button>
+                <button
+                  onClick={generateICS}
+                  className="w-full px-6 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3"
+                >
+                  <Calendar size={18} className="text-green-400" />
+                  <span>Apple / Download ICS</span>
+                </button>
+              </div>
+            )}
+          </div>
+
           <p className="text-slate-400 text-sm">
-            Jangan sampai terlewat, tandai kalender Anda! 📅
+            Simpan tanggal ke kalender Anda 📅
           </p>
         </div>
       </div>

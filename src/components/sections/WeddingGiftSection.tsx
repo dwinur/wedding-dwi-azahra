@@ -1,16 +1,35 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Gift, X, Copy, Check, CreditCard, Home } from 'lucide-react'
 
 export function WeddingGiftSection() {
   const [showModal, setShowModal] = useState(false)
   const [copiedBank, setCopiedBank] = useState(false)
   const [copiedAddress, setCopiedAddress] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const bankAccount = "5271581883"
   const accountName = "Azahra Emiria"
   const address = "jl. Merak Blok 92 No. 3, Meruya Ilir Jakarta Barat 11620"
+
+  // For portal
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [showModal])
 
   const copyToClipboard = (text: string, type: 'bank' | 'address') => {
     navigator.clipboard.writeText(text).then(() => {
@@ -62,12 +81,12 @@ export function WeddingGiftSection() {
         </div>
       </div>
 
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      {/* Modal using Portal */}
+      {mounted && showModal && createPortal(
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
           <div className="bg-slate-800 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10">
             {/* Modal Header */}
-            <div className="sticky top-0 bg-slate-800 border-b border-white/10 px-6 py-4 flex items-center justify-between rounded-t-3xl">
+            <div className="bg-slate-800 border-b border-white/10 px-6 py-4 flex items-center justify-between rounded-t-3xl">
               <h3 className="text-2xl text-white">Informasi Pengiriman</h3>
               <button
                 onClick={() => setShowModal(false)}
@@ -160,7 +179,8 @@ export function WeddingGiftSection() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   )
