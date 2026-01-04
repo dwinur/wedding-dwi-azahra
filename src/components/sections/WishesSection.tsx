@@ -86,7 +86,7 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
             Ucapan & Doa
           </h2>
           <p className="text-slate-300 max-w-lg mx-auto">
-            Tinggalkan ucapan selamat dan doa terbaik untuk Upi & Dwi
+            Tinggalkan ucapan selamat dan doa terbaik untuk <br /> Azahra & Dwi
           </p>
         </div>
 

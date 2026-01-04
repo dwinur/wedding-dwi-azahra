@@ -23,6 +23,7 @@ export default function GuestPage() {
   const toParam = searchParams.get('to')
   
   const [isInvitationOpen, setIsInvitationOpen] = useState(false)
+  const [isContentVisible, setIsContentVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const sectionsRef = useRef<HTMLDivElement[]>([])
 
@@ -35,6 +36,10 @@ export default function GuestPage() {
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true)
+    // Delay content animation to sync with opening fade out
+    setTimeout(() => {
+      setIsContentVisible(true)
+    }, 100)
   }
 
   const scrollToSection = (index: number) => {
@@ -78,7 +83,9 @@ export default function GuestPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0f172a' }}>
       {/* Background Video */}
-      <div className="fixed inset-0 z-0 overflow-hidden">
+      <div className={`fixed inset-0 z-0 overflow-hidden transition-all duration-1000 ease-out ${
+        isContentVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+      }`}>
         <video
           autoPlay
           loop
@@ -95,7 +102,9 @@ export default function GuestPage() {
       <MusicPlayer />
 
       {/* Sections */}
-      <div className="relative z-10">
+      <div className={`relative z-10 transition-all duration-1000 ease-out delay-200 ${
+        isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
         <div ref={(el) => { if (el) sectionsRef.current[0] = el }}>
           <CoverSection guestName={guestName} onScrollToNext={handleScrollToNext} />
         </div>

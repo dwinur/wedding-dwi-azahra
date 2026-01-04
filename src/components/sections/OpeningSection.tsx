@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail } from 'lucide-react';
 
 interface OpeningSectionProps {
@@ -9,8 +9,21 @@ interface OpeningSectionProps {
 }
 
 export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionProps) {
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClick = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onOpenInvitation();
+    }, 800);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div 
+      className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-[800ms] ease-out ${
+        isClosing ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
+      }`}
+    >
       {/* Video Background */}
       <video
         autoPlay
@@ -23,10 +36,14 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
       </video>
       
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      <div className={`absolute inset-0 bg-black/60 transition-opacity duration-[800ms] ${
+        isClosing ? 'opacity-0' : 'opacity-100'
+      }`} />
       
       {/* Content */}
-      <div className="relative z-10 text-center max-w-lg mx-auto px-6">
+      <div className={`relative z-10 text-center max-w-lg mx-auto px-6 transition-all duration-[600ms] ${
+        isClosing ? 'opacity-0 translate-y-[-20px]' : 'opacity-100 translate-y-0'
+      }`}>
         {/* Header Text */}
         <p className="tracking-[0.3em] text-white/90 text-xs md:text-sm mb-4 uppercase">
           The Wedding of
@@ -70,8 +87,9 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
         
         {/* Open Invitation Button */}
         <button
-          onClick={onOpenInvitation}
-          className="px-10 py-4 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-3"
+          onClick={handleClick}
+          disabled={isClosing}
+          className="px-10 py-4 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-3 disabled:opacity-70"
         >
           <Mail size={24} />
           Buka Undangan

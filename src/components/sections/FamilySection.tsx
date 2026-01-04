@@ -50,7 +50,7 @@ export function FamilySection() {
                 Anak dari
               </p>
               <p className="text-white text-lg md:text-xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-                Bapak Irwan Sadewa &
+                Bapak Irwan Sadewa & 
               </p>
               <p className="text-white text-lg md:text-xl mb-6" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
                 Ibu Esther Maria Tuffah
@@ -114,17 +114,17 @@ export function FamilySection() {
                 Bapak Muhadi &
               </p>
               <p className="text-white text-lg md:text-xl mb-6" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-                Ibu Neneng
+                Ibu Neneng Arsa
               </p>
               
               <a 
-                href="https://instagram.com/dwi_nurhadiansyah" 
+                href="https://instagram.com/dwi_nhd" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-rose-400 hover:text-rose-300 transition-colors mt-4"
               >
                 <Instagram size={20} />
-                <span>@dwi_nurhadiansyah</span>
+                {/* <span>@dwi_nurhadiansyah</span> */}
               </a>
             </div>
             

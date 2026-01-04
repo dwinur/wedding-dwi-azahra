@@ -12,7 +12,14 @@ interface CoverSectionProps {
 export function CoverSection({ guestName, onScrollToNext }: CoverSectionProps) {
   return (
     <div className="min-h-screen flex items-center justify-center px-6 relative">
-      <div className="text-center max-w-4xl mx-auto">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+        style={{ backgroundImage: 'url(/images/background-2.jpg)' }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/70" />
+      
+      <div className="text-center max-w-4xl mx-auto relative z-10">
         
         {/* Text Header */}
         <p className="tracking-[0.3em] text-white/90 text-xs md:text-sm mb-4 uppercase">

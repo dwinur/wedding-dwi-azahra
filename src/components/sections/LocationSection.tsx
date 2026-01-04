@@ -107,7 +107,8 @@ export function LocationSection() {
         {/* Additional Info */}
         <div className="mt-8 text-center">
           <p className="text-slate-300">
-            Parkir tersedia di area masjid • Dress code: Formal & Sopan
+            Parkir tersedia di area masjid <br />
+            Dress code: Formal & Sopan
           </p>
         </div>
       </div>

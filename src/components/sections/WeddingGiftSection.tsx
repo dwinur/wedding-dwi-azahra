@@ -8,9 +8,9 @@ export function WeddingGiftSection() {
   const [copiedBank, setCopiedBank] = useState(false)
   const [copiedAddress, setCopiedAddress] = useState(false)
 
-  const bankAccount = "1234567890"
+  const bankAccount = "5271581883"
   const accountName = "Azahra Emiria"
-  const address = "Jl. Contoh Alamat No. 123, Jakarta Selatan, DKI Jakarta 12345"
+  const address = "jl. Merak Blok 92 No. 3, Meruya Ilir Jakarta Barat 11620"
 
   const copyToClipboard = (text: string, type: 'bank' | 'address') => {
     navigator.clipboard.writeText(text).then(() => {
