@@ -14,10 +14,10 @@ export function CoverSection({ guestName, onScrollToNext }: CoverSectionProps) {
     <div className="min-h-screen flex items-center justify-center px-6 relative">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: 'url(/images/background-2.jpg)' }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: 'url(/images/background-6.webp)' }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/50 to-slate-900/80" />
       
       <div className="text-center max-w-4xl mx-auto relative z-10">
         
@@ -31,7 +31,7 @@ export function CoverSection({ guestName, onScrollToNext }: CoverSectionProps) {
           className="text-5xl md:text-6xl lg:text-7xl mb-3 text-white"
           style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
         >
-          Upi & Dwi
+          Azahra & Dwi
         </h1>
         
         {/* Date */}
@@ -55,7 +55,7 @@ export function CoverSection({ guestName, onScrollToNext }: CoverSectionProps) {
               <div className="rounded-t-full rounded-b-3xl overflow-hidden w-64 md:w-80 lg:w-96 relative aspect-[3/4]">
                 <Image 
                   src="/images/cover-couple.png" 
-                  alt="Upi & Dwi" 
+                  alt="Azahra & Dwi" 
                   fill
                   className="object-cover"
                   priority
