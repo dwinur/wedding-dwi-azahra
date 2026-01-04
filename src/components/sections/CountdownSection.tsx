@@ -88,15 +88,6 @@ export function CountdownSection() {
             ))}
           </div>
 
-          {/* Wedding Date */}
-          <div className="text-center mt-10 pt-8 border-t border-white/10">
-            <p className="text-rose-400 text-lg md:text-xl mb-2">
-              Minggu, 12 April 2026
-            </p>
-            <p className="text-slate-400">
-              Insya Allah pukul 09:00 WIB
-            </p>
-          </div>
         </div>
 
         {/* Add to Calendar hint */}

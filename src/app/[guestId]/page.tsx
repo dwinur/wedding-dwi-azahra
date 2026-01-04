@@ -114,10 +114,10 @@ export default function GuestPage() {
           <EventDetailsSection />
         </div>
         <div ref={(el) => { if (el) sectionsRef.current[4] = el }}>
-          <LocationSection />
+          <CountdownSection />
         </div>
         <div ref={(el) => { if (el) sectionsRef.current[5] = el }}>
-          <CountdownSection />
+          <LocationSection />
         </div>
         <div ref={(el) => { if (el) sectionsRef.current[6] = el }}>
           <WeddingGiftSection />
