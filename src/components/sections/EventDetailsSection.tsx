@@ -80,7 +80,7 @@ export function EventDetailsSection() {
             </span>
           </div>
           <div className="flex justify-center gap-2 items-center">
-            {[5, 6, 7, 8, 9, 10].map((date) => (
+            {[6, 7, 8, 9, 10, 11].map((date) => (
               <span
                 key={date}
                 className="text-lg md:text-xl w-6 md:w-8"
