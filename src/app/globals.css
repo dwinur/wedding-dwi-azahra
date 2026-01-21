@@ -3,8 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  /* Whimsical Theme Colors */
+  --cream: #F5F0E8;
+  --cream-dark: #EDE5D8;
+  --cream-light: #FAF8F5;
+  --periwinkle: #8B9DC3;
+  --periwinkle-light: #A8B6D1;
+  --periwinkle-dark: #7589B0;
+  --dusty-rose: #C4A5A5;
+  --dusty-rose-light: #D4BFBF;
+  --dusty-rose-dark: #9B7A7A;
+  --dusty-rose-accent: #8B5A5A;
+  --teal: #5B8A8A;
+  --teal-light: #7BA7A7;
+  --mustard: #D4A84B;
+  --mustard-light: #E5C97A;
+  --text-dark: #4A4A4A;
+  --text-medium: #6B6B6B;
+  --text-light: #8B8B8B;
+  
+  --background: var(--cream);
+  --foreground: var(--text-dark);
 }
 
 * {
@@ -18,30 +37,30 @@ html {
 }
 
 body {
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: var(--cream);
+  color: var(--text-dark);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - whimsical theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--cream-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: var(--periwinkle);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: var(--periwinkle-dark);
 }
 
 /* Section styling */
@@ -61,13 +80,133 @@ body {
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes flutter {
+  0%, 100% {
+    transform: rotate(-5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-5px);
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Glass effect */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-flutter {
+  animation: flutter 2s ease-in-out infinite;
+}
+
+/* Soft glass effect for light theme */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Periwinkle card style */
+.card-periwinkle {
+  background-color: var(--periwinkle);
+  border-radius: 1.5rem;
+  color: white;
+}
+
+/* Dusty rose card style */
+.card-dusty-rose {
+  background-color: var(--dusty-rose);
+  border-radius: 1.5rem;
+}
+
+/* Input styling for whimsical theme */
+.input-whimsical {
+  background-color: var(--periwinkle);
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  color: white;
+  font-size: 1rem;
+}
+
+.input-whimsical::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Button styling */
+.btn-periwinkle {
+  background-color: var(--periwinkle);
+  color: white;
+  border-radius: 2rem;
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-periwinkle:hover {
+  background-color: var(--periwinkle-dark);
+  transform: translateY(-2px);
+}
+
+.btn-dusty-rose {
+  background-color: var(--dusty-rose-accent);
+  color: white;
+  border-radius: 2rem;
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-dusty-rose:hover {
+  background-color: var(--dusty-rose-dark);
+  transform: translateY(-2px);
+}
+
+/* Decorative border pattern */
+.border-pattern {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--periwinkle) 0px,
+    var(--periwinkle) 20px,
+    transparent 20px,
+    transparent 25px
+  );
+  height: 4px;
+}
+
+/* Arch shape container */
+.arch-container {
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  overflow: hidden;
+}
+
+/* Star decoration */
+.star {
+  color: var(--mustard);
 }

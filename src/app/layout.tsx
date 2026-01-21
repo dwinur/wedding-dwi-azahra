@@ -1,11 +1,34 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Caveat, Indie_Flower, Patrick_Hand, Inter, Amiri } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+// Handwritten style font for names and headings
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+// More casual handwritten font
+const indieFlower = Indie_Flower({
+  variable: "--font-indie",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+// Handwritten font for body text
+const patrickHand = Patrick_Hand({
+  variable: "--font-patrick",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+// Arabic font
+const amiri = Amiri({
+  variable: "--font-amiri",
+  subsets: ["arabic"],
+  weight: ["400", "700"],
 });
 
 const inter = Inter({
@@ -36,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${playfair.variable} ${inter.variable} antialiased`}
+        className={`${caveat.variable} ${indieFlower.variable} ${patrickHand.variable} ${amiri.variable} ${inter.variable} antialiased`}
       >
         <Providers>
           {children}

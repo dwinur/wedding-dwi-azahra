@@ -36,9 +36,9 @@ export function CountdownSection() {
     const start = new Date(eventDetails.startDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
     const end = new Date(eventDetails.endDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
     const descriptionWithMap = `${eventDetails.description}\n\nGoogle Maps: ${eventDetails.mapsUrl}`
-    
+
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${start}/${end}&details=${encodeURIComponent(descriptionWithMap)}&location=${encodeURIComponent(eventDetails.location)}`
-    
+
     window.open(url, '_blank')
     setShowCalendarOptions(false)
   }
@@ -47,9 +47,9 @@ export function CountdownSection() {
     const start = new Date(eventDetails.startDate).toISOString()
     const end = new Date(eventDetails.endDate).toISOString()
     const descriptionWithMap = `${eventDetails.description}\n\nGoogle Maps: ${eventDetails.mapsUrl}`
-    
+
     const url = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&subject=${encodeURIComponent(eventDetails.title)}&startdt=${start}&enddt=${end}&body=${encodeURIComponent(descriptionWithMap)}&location=${encodeURIComponent(eventDetails.location)}`
-    
+
     window.open(url, '_blank')
     setShowCalendarOptions(false)
   }
@@ -100,7 +100,7 @@ export function CountdownSection() {
 
   useEffect(() => {
     setMounted(true)
-    
+
     const calculateTimeLeft = () => {
       const now = new Date().getTime()
       const difference = weddingDate - now
@@ -121,7 +121,7 @@ export function CountdownSection() {
     // Close dropdown when clicking outside
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement
-      if (!target.closest('.relative')) {
+      if (!target.closest('.calendar-dropdown')) {
         setShowCalendarOptions(false)
       }
     }
@@ -142,87 +142,140 @@ export function CountdownSection() {
   ]
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 md:px-12 py-24 pb-32">
+    <div
+      className="min-h-screen flex items-center justify-center px-6 md:px-12 py-24 pb-32"
+      style={{ backgroundColor: '#F5F0E8' }}
+    >
       <div className="max-w-4xl mx-auto w-full">
-        {/* Section Title */}
-        <div className="text-center mb-16">
-          <p className="tracking-widest text-slate-400 text-sm mb-4 uppercase">
-            Save the Date
-          </p>
-          <h2 
-            className="text-4xl md:text-5xl text-white mb-4"
-            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-          >
-            Menghitung Hari
-          </h2>
-          <p className="text-slate-300 max-w-lg mx-auto">
-            Menuju hari bahagia kami
-          </p>
-        </div>
+        {/* Arch Container */}
+        <div
+          className="rounded-t-[200px] rounded-b-3xl p-8 md:p-12 relative overflow-hidden"
+          style={{ backgroundColor: '#8B9DC3' }}
+        >
+          {/* Decorative fountain illustration placeholder */}
+          <div className="flex justify-center mb-8">
+            <div
+              className="w-24 h-24 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
+            >
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                {/* Simple fountain icon */}
+                <path d="M24 8 L24 20" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                <path d="M20 12 Q24 8 28 12" stroke="white" strokeWidth="2" fill="none" />
+                <ellipse cx="24" cy="24" rx="12" ry="4" stroke="white" strokeWidth="2" fill="none" />
+                <path d="M12 24 Q12 36 24 36 Q36 36 36 24" stroke="white" strokeWidth="2" fill="none" />
+              </svg>
+            </div>
+          </div>
 
-        {/* Countdown Timer */}
-        <div className="rounded-3xl p-8 md:p-12 border border-white/20">
-          <div className="grid grid-cols-4 gap-4 md:gap-8">
+          {/* Title */}
+          <div className="text-center mb-8">
+            <p
+              className="text-xl md:text-2xl text-white mb-2"
+              style={{ fontFamily: 'var(--font-patrick), cursive' }}
+            >
+              Kami akan menikah,
+            </p>
+            <p
+              className="text-base md:text-lg text-white/90"
+              style={{ fontFamily: 'var(--font-patrick), cursive' }}
+            >
+              dan kami ingin anda menjadi bagian dari<br />hari istimewa kami!
+            </p>
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="grid grid-cols-4 gap-3 md:gap-6 mb-8">
             {timeBlocks.map((block, index) => (
               <div key={index} className="text-center">
-                <div className="bg-white/10 rounded-2xl p-4 md:p-6 mb-3 border border-white/10">
-                  <span 
-                    className="text-3xl md:text-5xl lg:text-6xl font-bold text-white"
-                    style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+                <div
+                  className="rounded-2xl p-3 md:p-4 mb-2 shadow-md"
+                  style={{ backgroundColor: '#F5F0E8' }}
+                >
+                  <span
+                    className="text-2xl md:text-4xl lg:text-5xl font-bold"
+                    style={{
+                      fontFamily: 'var(--font-patrick), cursive',
+                      color: '#8B5A5A'
+                    }}
                   >
                     {mounted ? String(block.value).padStart(2, '0') : '--'}
                   </span>
                 </div>
-                <span className="text-slate-300 text-sm md:text-base">{block.label}</span>
+                <span
+                  className="text-sm md:text-base"
+                  style={{
+                    fontFamily: 'var(--font-patrick), cursive',
+                    color: '#8B5A5A'
+                  }}
+                >
+                  {block.label}
+                </span>
               </div>
             ))}
           </div>
 
-        </div>
+          {/* Save the Date Button with Dropdown */}
+          <div className="text-center calendar-dropdown">
+            <div className="relative inline-block">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowCalendarOptions(!showCalendarOptions)
+                }}
+                className="px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-3"
+                style={{
+                  backgroundColor: '#F5F0E8',
+                  color: '#8B5A5A'
+                }}
+              >
+                <Calendar size={20} />
+                <span style={{ fontFamily: 'var(--font-patrick), cursive' }}>
+                  Save The date
+                </span>
+                <ChevronDown size={18} className={`transition-transform ${showCalendarOptions ? 'rotate-180' : ''}`} />
+              </button>
 
-        {/* Save the Date Button with Dropdown */}
-        <div className="text-center mt-8 space-y-4">
-          <div className="relative inline-block">
-            <button
-              onClick={() => setShowCalendarOptions(!showCalendarOptions)}
-              className="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-full hover:from-rose-600 hover:to-pink-600 transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-3"
-            >
-              <Calendar size={20} />
-              Save the Date
-              <ChevronDown size={18} className={`transition-transform ${showCalendarOptions ? 'rotate-180' : ''}`} />
-            </button>
-
-            {/* Dropdown Menu */}
-            {showCalendarOptions && (
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-slate-800 rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-64 z-50">
-                <button
-                  onClick={addToGoogleCalendar}
-                  className="w-full px-6 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-b border-white/5"
+              {/* Dropdown Menu */}
+              {showCalendarOptions && (
+                <div
+                  className="absolute top-full mt-2 left-1/2 -translate-x-1/2 rounded-2xl shadow-2xl overflow-hidden w-64 z-50"
+                  style={{ backgroundColor: '#F5F0E8' }}
                 >
-                  <Calendar size={18} className="text-rose-400" />
-                  <span>Google Calendar</span>
-                </button>
-                <button
-                  onClick={addToOutlook}
-                  className="w-full px-6 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3 border-b border-white/5"
-                >
-                  <Calendar size={18} className="text-blue-400" />
-                  <span>Outlook Calendar</span>
-                </button>
-                <button
-                  onClick={generateICS}
-                  className="w-full px-6 py-3 text-left text-white hover:bg-white/10 transition-colors flex items-center gap-3"
-                >
-                  <Calendar size={18} className="text-green-400" />
-                  <span>Apple / Download ICS</span>
-                </button>
-              </div>
-            )}
+                  <button
+                    onClick={addToGoogleCalendar}
+                    className="w-full px-6 py-3 text-left transition-colors flex items-center gap-3 border-b"
+                    style={{
+                      color: '#4A4A4A',
+                      borderColor: '#EDE5D8'
+                    }}
+                  >
+                    <Calendar size={18} style={{ color: '#8B5A5A' }} />
+                    <span>Google Calendar</span>
+                  </button>
+                  <button
+                    onClick={addToOutlook}
+                    className="w-full px-6 py-3 text-left transition-colors flex items-center gap-3 border-b"
+                    style={{
+                      color: '#4A4A4A',
+                      borderColor: '#EDE5D8'
+                    }}
+                  >
+                    <Calendar size={18} style={{ color: '#8B9DC3' }} />
+                    <span>Outlook Calendar</span>
+                  </button>
+                  <button
+                    onClick={generateICS}
+                    className="w-full px-6 py-3 text-left transition-colors flex items-center gap-3"
+                    style={{ color: '#4A4A4A' }}
+                  >
+                    <Calendar size={18} style={{ color: '#7BA7A7' }} />
+                    <span>Apple / Download ICS</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-
-          <p className="text-slate-400 text-sm">
-            Simpan tanggal ke kalender Anda 📅
-          </p>
         </div>
       </div>
     </div>

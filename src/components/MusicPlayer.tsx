@@ -44,7 +44,7 @@ export const MusicPlayer = forwardRef<MusicPlayerRef, MusicPlayerProps>(function
   useEffect(() => {
     if (!autoplayAttempted && audioRef.current) {
       setAutoplayAttempted(true)
-      
+
       const attemptAutoplay = async () => {
         try {
           await audioRef.current?.play()
@@ -55,7 +55,7 @@ export const MusicPlayer = forwardRef<MusicPlayerRef, MusicPlayerProps>(function
           // Autoplay blocked, will be triggered by user interaction
         }
       }
-      
+
       // Small delay to ensure audio is loaded
       setTimeout(attemptAutoplay, 500)
     }
@@ -97,7 +97,7 @@ export const MusicPlayer = forwardRef<MusicPlayerRef, MusicPlayerProps>(function
   return (
     <>
       {/* Hidden Audio Element */}
-      <audio 
+      <audio
         ref={audioRef}
         loop
         preload="auto"
@@ -107,14 +107,25 @@ export const MusicPlayer = forwardRef<MusicPlayerRef, MusicPlayerProps>(function
       </audio>
 
       {/* Floating Music Player */}
-      <div className="fixed left-6 bottom-24 md:bottom-6 z-50 bg-white/95 backdrop-blur-lg rounded-xl shadow-lg p-3 border border-slate-200 flex flex-col items-center gap-2">
+      <div
+        className="fixed left-6 bottom-24 md:bottom-6 z-50 backdrop-blur-lg rounded-xl shadow-lg p-3 flex flex-col items-center gap-2"
+        style={{
+          backgroundColor: 'rgba(245, 240, 232, 0.95)',
+          border: '1px solid #EDE5D8'
+        }}
+      >
         {/* Music Icon */}
-        <Music className={`text-rose-500 ${isPlaying ? 'animate-pulse' : ''}`} size={20} />
-        
+        <Music
+          className={isPlaying ? 'animate-pulse' : ''}
+          size={20}
+          style={{ color: '#8B9DC3' }}
+        />
+
         {/* Control Button */}
         <button
           onClick={togglePlay}
-          className="w-8 h-8 rounded-full bg-rose-500 hover:bg-rose-600 flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+          style={{ backgroundColor: '#8B9DC3' }}
           aria-label={isPlaying ? 'Pause' : 'Play'}
         >
           {isPlaying ? (

@@ -64,37 +64,20 @@ export default function Home() {
   // Jika invitation belum dibuka, tampilkan Opening Section
   if (!isInvitationOpen) {
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#0f172a' }}>
+      <div className="min-h-screen bg-cream">
         <OpeningSection onOpenInvitation={handleOpenInvitation} />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#0f172a' }}>
-      {/* Background Video */}
-      <div className={`fixed inset-0 z-0 overflow-hidden transition-all duration-1000 ease-out ${
-        isContentVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-      }`}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-30"
-        >
-          <source src="/videos/cinematic.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/70 to-slate-900" />
-      </div>
-
+    <div className="min-h-screen bg-cream">
       {/* Music Player */}
       <MusicPlayer ref={musicPlayerRef} />
 
       {/* Sections */}
-      <div className={`relative z-10 transition-all duration-1000 ease-out delay-200 ${
-        isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}>
+      <div className={`relative z-10 transition-all duration-1000 ease-out delay-200 ${isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
         <div ref={(el) => { if (el) sectionsRef.current[0] = el }}>
           <CoverSection onScrollToNext={handleScrollToNext} />
         </div>
