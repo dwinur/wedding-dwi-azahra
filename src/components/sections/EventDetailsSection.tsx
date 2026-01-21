@@ -162,7 +162,7 @@ export function EventDetailsSection() {
         </div>
 
         {/* Google Maps Button */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <a
             href="https://maps.google.com/?q=Masjid+Jami+An-Noor+Ciputat"
             target="_blank"
@@ -178,7 +178,7 @@ export function EventDetailsSection() {
               Google Maps
             </span>
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   )
