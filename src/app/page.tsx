@@ -61,57 +61,55 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Jika invitation belum dibuka, tampilkan Opening Section
-  if (!isInvitationOpen) {
-    return (
-      <div className="min-h-screen bg-cream">
-        <OpeningSection onOpenInvitation={handleOpenInvitation} />
-      </div>
-    )
-  }
-
+  // Main render with unified layout
   return (
     <div className="min-h-screen bg-cream">
-      {/* Music Player */}
+      {/* Music Player - Always mounted to handle autoplay/user interaction */}
       <MusicPlayer ref={musicPlayerRef} />
 
-      {/* Sections */}
-      <div className={`relative z-10 transition-all duration-1000 ease-out delay-200 ${isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-        <div ref={(el) => { if (el) sectionsRef.current[0] = el }}>
-          <CoverSection onScrollToNext={handleScrollToNext} />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[1] = el }}>
-          <InvitationSection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[2] = el }}>
-          <FamilySection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[3] = el }}>
-          <EventDetailsSection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[4] = el }}>
-          <CountdownSection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[5] = el }}>
-          <LocationSection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[6] = el }}>
-          <WeddingGiftSection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[7] = el }}>
-          <WishesSection />
-        </div>
-        <div ref={(el) => { if (el) sectionsRef.current[8] = el }} className="pb-20">
-          <ClosingSection />
-        </div>
-      </div>
+      {!isInvitationOpen ? (
+        <OpeningSection onOpenInvitation={handleOpenInvitation} />
+      ) : (
+        <>
+          {/* Sections */}
+          <div className={`relative z-10 transition-all duration-1000 ease-out delay-200 ${isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+            <div ref={(el) => { if (el) sectionsRef.current[0] = el }}>
+              <CoverSection onScrollToNext={handleScrollToNext} />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[1] = el }}>
+              <InvitationSection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[2] = el }}>
+              <FamilySection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[3] = el }}>
+              <EventDetailsSection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[4] = el }}>
+              <CountdownSection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[5] = el }}>
+              <LocationSection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[6] = el }}>
+              <WeddingGiftSection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[7] = el }}>
+              <WishesSection />
+            </div>
+            <div ref={(el) => { if (el) sectionsRef.current[8] = el }} className="pb-20">
+              <ClosingSection />
+            </div>
+          </div>
 
-      {/* Footer Menu */}
-      <FooterMenu activeSection={activeSection} onNavigate={scrollToSection} />
+          {/* Footer Menu */}
+          <FooterMenu activeSection={activeSection} onNavigate={scrollToSection} />
 
-      {/* Navigation Dots */}
-      <NavigationDots activeSection={activeSection} onNavigate={scrollToSection} totalSections={9} />
+          {/* Navigation Dots */}
+          <NavigationDots activeSection={activeSection} onNavigate={scrollToSection} totalSections={9} />
+        </>
+      )}
     </div>
   )
 }

@@ -15,7 +15,7 @@ const RingsIcon = () => (
 export function EventDetailsSection() {
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden section"
       style={{ backgroundColor: '#F5F0E8' }}
     >
       {/* PNG Frame Overlay */}
@@ -28,7 +28,7 @@ export function EventDetailsSection() {
         />
       </div>
 
-      {/* Content - shifted up with negative margin */}
+      {/* Content - Transparent with negative margin */}
       <div className="relative z-10 w-full max-w-sm mx-auto text-center px-4" style={{ marginTop: '-18vh' }}>
 
         {/* Section Title */}

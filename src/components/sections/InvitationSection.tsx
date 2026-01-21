@@ -6,7 +6,7 @@ import Image from 'next/image'
 export function InvitationSection() {
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden section"
       style={{ backgroundColor: '#F5F0E8' }}
     >
       {/* PNG Frame Overlay */}
@@ -20,7 +20,7 @@ export function InvitationSection() {
         />
       </div>
 
-      {/* Content - centered */}
+      {/* Content - Transparent (Centered) */}
       <div className="relative z-10 w-full max-w-md mx-auto text-center px-6 py-16">
 
         {/* Bismillah */}
@@ -55,7 +55,7 @@ export function InvitationSection() {
               color: '#5B8A8A'
             }}
           >
-            "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya..."
+            "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri..."
           </p>
           <p
             className="text-lg md:text-xl mt-3"

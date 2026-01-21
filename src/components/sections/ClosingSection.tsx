@@ -7,7 +7,7 @@ import { ChevronUp } from 'lucide-react'
 export function ClosingSection() {
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden section"
       style={{ backgroundColor: '#F5F0E8' }}
     >
       {/* PNG Frame Overlay */}
@@ -20,7 +20,7 @@ export function ClosingSection() {
         />
       </div>
 
-      {/* Content - centered */}
+      {/* Content - Transparent with negative margin */}
       <div className="relative z-10 w-full max-w-md mx-auto text-center px-6 py-16" style={{ marginTop: '-15vh' }}>
 
         {/* Main Message */}
@@ -72,7 +72,7 @@ export function ClosingSection() {
         </h2>
       </div>
 
-      {/* Floating Back to Top Button - like music player */}
+      {/* Floating Back to Top Button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className="fixed bottom-6 right-20 z-50 w-12 h-12 flex items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110"
