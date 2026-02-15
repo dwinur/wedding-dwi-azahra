@@ -58,7 +58,7 @@ export function InvitationSection() {
             color: '#E0115F'
           }}
         >
-          Doa Rasullulah SAW kepada seseorang ketika menikah
+          Doa Rasulullah SAW kepada seseorang ketika menikah
         </p>
 
         {/* Arabic Quote */}

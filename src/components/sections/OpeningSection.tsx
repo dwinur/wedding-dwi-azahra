@@ -48,7 +48,7 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
               color: '#E0115F'
             }}
           >
-            PERNIKAHAN
+            UNDANGAN PERNIKAHAN
           </p>
 
           {/* Couple Names */}
