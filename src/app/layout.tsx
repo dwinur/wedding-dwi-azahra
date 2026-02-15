@@ -48,6 +48,13 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover' as const,
+};
+
 export const metadata: Metadata = {
   title: "Wedding Invitation - Azahra & Dwi",
   description: "Undangan Pernikahan Azahra & Dwi - Minggu, 12 April 2026",

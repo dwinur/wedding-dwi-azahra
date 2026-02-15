@@ -36,7 +36,7 @@ export function EventDetailsSection() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center relative overflow-hidden section"
+      className="flex flex-col items-center relative overflow-hidden section"
       style={{
         backgroundImage: 'url(/images/bg-pengantin.png)',
         backgroundSize: 'cover',

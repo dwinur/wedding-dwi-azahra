@@ -6,7 +6,7 @@ import Image from 'next/image'
 export function ClosingSection() {
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden section"
+      className="flex flex-col items-center justify-center relative overflow-hidden section"
       style={{
         backgroundImage: 'url(/images/bg-pengantin.png)',
         backgroundSize: 'cover',

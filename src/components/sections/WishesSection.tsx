@@ -75,7 +75,7 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-6 md:px-12 py-24 pb-32 relative overflow-hidden"
+      className="flex items-center justify-center px-6 md:px-12 py-24 pb-32 relative overflow-hidden"
       style={{
         backgroundImage: 'url(/images/bg-pengantin.png)',
         backgroundSize: 'cover',

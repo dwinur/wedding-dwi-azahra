@@ -48,7 +48,7 @@ export function WeddingGiftSection() {
   return (
     <>
       <div
-        className="min-h-screen flex flex-col items-center justify-center relative section"
+        className="flex flex-col items-center justify-center relative section"
         style={{
           backgroundImage: 'url(/images/bg-pengantin.png)',
           backgroundSize: 'cover',
