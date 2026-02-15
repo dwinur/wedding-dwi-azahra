@@ -32,7 +32,7 @@ export function CoverSection({ onScrollToNext }: CoverSectionProps) {
               color: '#E0115F'
             }}
           >
-            PERNIKAHAN
+            UNDANGAN PERNIKAHAN
           </p>
 
           {/* Couple Names */}
