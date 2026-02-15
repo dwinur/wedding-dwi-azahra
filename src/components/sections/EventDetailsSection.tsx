@@ -145,7 +145,7 @@ export function EventDetailsSection() {
               className="text-3xl md:text-4xl font-bold text-[#16407F]"
               style={{ fontFamily: 'var(--font-caveat-brush), cursive' }}
             >
-              Reception
+              Resepsi
             </span>
             <span
               className="text-2xl md:text-3xl text-[#16407F] font-bold"
