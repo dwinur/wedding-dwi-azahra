@@ -74,7 +74,7 @@ export function WeddingGiftSection() {
               color: '#16407F',
             }}
           >
-            Tanda Kasih
+            Hadiah Pernikahan
           </h2>
 
           {/* Description */}
@@ -86,7 +86,7 @@ export function WeddingGiftSection() {
               fontSize: '18px',
             }}
           >
-            Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih anda, anda dapat memberi kado secara cashless.
+            Kehadiran Anda merupakan sebuah doa serta rasa syukur bagi kami, namun apabila Bapak/Ibu/Saudara/i berkeinginan memberikan tanda kasih, dapat menyampaikannya melalui tautan berikut:
           </p>
 
           {/* Digital Gift Button */}
@@ -103,7 +103,7 @@ export function WeddingGiftSection() {
               className="text-lg font-bold"
               style={{ fontFamily: 'var(--font-patrick), cursive' }}
             >
-              Digital Gift
+              Beri Kado
             </span>
           </button>
         </div>

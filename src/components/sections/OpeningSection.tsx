@@ -132,7 +132,7 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
             fontSize: '1.1rem'
           }}
         >
-          Open Invitation
+          Buka Undangan
         </button>
       </div>
     </div>

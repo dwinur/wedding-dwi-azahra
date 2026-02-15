@@ -26,11 +26,11 @@ export function LocationSection() {
           style={{
             fontFamily: 'var(--font-patrick), cursive',
             color: '#16407F',
-            fontSize: '32px',
+            fontSize: '24px',
             fontWeight: 'bold',
           }}
         >
-          Ballroom Masjid{'\n'}Jami&apos; An-Noor
+          Ballroom Masjid Jami&apos; An-Noor
         </h2>
 
         {/* Address */}

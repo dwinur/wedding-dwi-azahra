@@ -106,13 +106,12 @@ export function EventDetailsSection() {
       {/* ============================================ */}
       <div className="relative z-20 flex flex-col items-center text-center gap-5 px-6 w-full max-w-md mt-4 pb-32" style={{ paddingTop: '12rem' }}>
 
-        {/* Header Text */}
-        <p
-          className="text-base md:text-lg text-[#E0115F] leading-relaxed max-w-[280px] mx-auto"
-          style={{ fontFamily: 'var(--font-patrick), cursive' }}
+        <h2
+          className="text-3xl md:text-4xl text-[#16407F]"
+          style={{ fontFamily: 'var(--font-caveat-brush), cursive' }}
         >
-          Kami akan menikah, dan kami ingin anda menjadi bagian dari hari istimewa kami!
-        </p>
+          Acara Pernikahan
+        </h2>
 
         {/* Date Display */}
         <h2
@@ -196,7 +195,7 @@ export function EventDetailsSection() {
             className="text-lg font-bold"
             style={{ fontFamily: 'var(--font-patrick), cursive' }}
           >
-            Save The Date
+            Simpan Tanggal
           </span>
         </button>
       </div>

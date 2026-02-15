@@ -227,7 +227,7 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
                 }}
               >
                 <Send size={18} />
-                {createWish.isPending ? 'Mengirim...' : 'Send'}
+                {createWish.isPending ? 'Mengirim...' : 'Kirim'}
               </button>
             </div>
           </form>
