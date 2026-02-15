@@ -5,9 +5,10 @@ import Image from 'next/image'
 
 interface CoverSectionProps {
   onScrollToNext: () => void
+  guestName?: string
 }
 
-export function CoverSection({ onScrollToNext }: CoverSectionProps) {
+export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
   return (
     <div
       className="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center"

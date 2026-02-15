@@ -97,12 +97,27 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
           </p>
         </div>
 
-        {/* Guest Name (If available, displayed unobtrusively or just ignored based on design, 
-            but for usability keeping it small or just hiding it if strictly following image. 
-            I will hide it for now to match image exactness, or put it above button) */}
+        {/* Kepada Yth */}
         {guestName && (
           <div className="mt-2">
-            <p className="text-sm text-gray-600 font-sans">Kepada Yth. {guestName}</p>
+            <p
+              style={{
+                fontFamily: 'var(--font-patrick), cursive',
+                color: '#16407F',
+                fontSize: '14px'
+              }}
+            >
+              Kepada Yth.
+            </p>
+            <p
+              className="text-xl"
+              style={{
+                fontFamily: 'var(--font-caveat-brush), cursive',
+                color: '#16407F',
+              }}
+            >
+              {guestName}
+            </p>
           </div>
         )}
 
