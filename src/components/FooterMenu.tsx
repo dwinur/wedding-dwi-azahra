@@ -19,9 +19,9 @@ export function FooterMenu({ activeSection, onNavigate }: FooterMenuProps) {
   ]
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-md">
+    <div className="fixed bottom-0 left-0 right-0 z-50 px-0 w-full" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
       <div
-        className="bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-white/20 p-2 flex items-center justify-between"
+        className="bg-white/90 backdrop-blur-md shadow-lg border-t border-white/20 p-1 flex items-center justify-around"
         style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)' }}
       >
         {menuItems.map((item) => {
@@ -32,13 +32,13 @@ export function FooterMenu({ activeSection, onNavigate }: FooterMenuProps) {
             <button
               key={item.label}
               onClick={() => onNavigate(item.target)}
-              className={`flex flex-col items-center justify-center p-2 rounded-full transition-all duration-300 w-14 h-14 ${isActive
-                ? 'bg-pink-50 text-[#E0115F] transform -translate-y-2 shadow-sm'
+              className={`flex flex-col items-center justify-center p-1.5 rounded-2xl transition-all duration-300 w-12 h-12 ${isActive
+                ? 'bg-pink-50 text-[#E0115F] transform -translate-y-1 shadow-sm'
                 : 'text-gray-400 hover:text-[#E0115F] hover:bg-pink-50/50'
                 }`}
             >
               <Icon
-                size={20}
+                size={18}
                 className={`transition-all duration-300 ${isActive ? 'scale-110' : 'scale-100'}`}
                 strokeWidth={isActive ? 2.5 : 2}
               />
