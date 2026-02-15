@@ -43,6 +43,15 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Mobile-safe full viewport height */
+.mobile-full-height {
+  height: 100vh;
+  height: 100dvh;
+  height: -webkit-fill-available;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* Custom scrollbar - whimsical theme */
@@ -65,7 +74,7 @@ body {
 
 /* Section styling */
 .section {
-  min-height: 96vh;
+  min-height: auto;
 }
 
 /* Animation */

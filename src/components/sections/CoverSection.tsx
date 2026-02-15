@@ -11,9 +11,8 @@ interface CoverSectionProps {
 export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
   return (
     <div
-      className="w-full relative overflow-hidden flex flex-col items-center justify-center"
+      className="mobile-full-height w-full relative overflow-hidden flex flex-col items-center justify-center"
       style={{
-        height: '100dvh',
         backgroundImage: 'url(/images/bg-home.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -23,10 +22,10 @@ export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
 
 
       {/* Content */}
-      <div className="relative z-10 text-center w-full max-w-lg mx-auto px-6 h-full flex flex-col justify-center items-center gap-4">
+      <div className="relative z-10 text-center w-full max-w-lg mx-auto px-6 h-full flex flex-col justify-center items-center gap-2">
 
         {/* Header Text */}
-        <div className="space-y-2 mt-8">
+        <div className="space-y-1 mt-2">
           <p
             className="tracking-[0.2em] text-sm uppercase font-bold"
             style={{
@@ -50,7 +49,7 @@ export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
         </div>
 
         {/* Center Photo */}
-        <div className="relative w-64 h-auto md:w-80 flex-shrink-0 my-2">
+        <div className="relative w-48 h-auto md:w-64 flex-shrink-0 my-1">
           <Image
             src="/images/cover-dwi 2.png"
             alt="Azahra & Dwi"
@@ -62,7 +61,7 @@ export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
         </div>
 
         {/* Date Section */}
-        <div className="space-y-2">
+        <div className="space-y-1">
           <p
             className="tracking-[0.2em] text-sm uppercase font-bold"
             style={{
@@ -85,7 +84,7 @@ export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
 
         {/* Scroll Down Button */}
         <button
-          className="w-12 h-12 flex items-center justify-center mx-auto transition-all duration-300 group animate-bounce mt-8"
+          className="w-12 h-12 flex items-center justify-center mx-auto transition-all duration-300 group animate-bounce mt-2"
           style={{
             border: '2px solid #E0115F',
             backgroundColor: 'transparent',
