@@ -37,11 +37,11 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
       </div>
 
       {/* Content */}
-      <div className={`relative z-10 text-center w-full max-w-lg mx-auto px-6 h-full flex flex-col justify-center items-center gap-4 transition-all duration-[600ms] ${isClosing ? 'opacity-0 translate-y-[-20px]' : 'opacity-100 translate-y-0'
+      <div className={`relative z-10 text-center w-full max-w-lg mx-auto px-6 h-full flex flex-col justify-center items-center gap-2 transition-all duration-[600ms] ${isClosing ? 'opacity-0 translate-y-[-20px]' : 'opacity-100 translate-y-0'
         }`}>
 
         {/* Header Text */}
-        <div className="space-y-2 mt-8">
+        <div className="space-y-1 mt-2">
           <p
             className="tracking-[0.2em] text-sm uppercase font-bold"
             style={{
@@ -65,7 +65,7 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
         </div>
 
         {/* Center Photo */}
-        <div className="relative w-64 h-auto md:w-80 flex-shrink-0 my-2">
+        <div className="relative w-48 h-auto md:w-64 flex-shrink-0 my-1">
           <Image
             src="/images/cover-dwi 2.png"
             alt="Azahra & Dwi"
@@ -77,7 +77,7 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
         </div>
 
         {/* Date Section */}
-        <div className="space-y-2">
+        <div className="space-y-1">
           <p
             className="tracking-[0.2em] text-sm uppercase font-bold"
             style={{
@@ -100,7 +100,7 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
 
         {/* Kepada Yth */}
         {guestName && (
-          <div className="mt-2">
+          <div className="mt-1">
             <p
               style={{
                 fontFamily: 'var(--font-patrick), cursive',
@@ -126,7 +126,7 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
         <button
           onClick={handleClick}
           disabled={isClosing}
-          className="px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-2 disabled:opacity-70 mt-4 text-white font-medium"
+          className="px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg inline-flex items-center gap-2 disabled:opacity-70 mt-2 text-white font-medium"
           style={{
             backgroundColor: '#E0115F',
             fontFamily: 'var(--font-patrick), cursive',
