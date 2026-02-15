@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   title: "Wedding Invitation - Azahra & Dwi",
   description: "Undangan Pernikahan Azahra & Dwi - Minggu, 12 April 2026",
   icons: {
-    icon: '/images/cover-couple.png',
+    icon: '/images/logo-nama.png',
     apple: '/images/cover-couple.png',
   },
   openGraph: {
