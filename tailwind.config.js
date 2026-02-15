@@ -36,11 +36,15 @@ module.exports = {
         // Legacy support
         background: "#F5F0E8",
         foreground: "#4A4A4A",
+        // User specific colors
+        magentapink: '#E0115F',
+        navyblue: '#16407F',
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         // Handwritten fonts
         handwriting: ["var(--font-caveat)", "cursive"],
+        brush: ["var(--font-caveat-brush)", "cursive"],
         casual: ["var(--font-indie)", "cursive"],
         hand: ["var(--font-patrick)", "cursive"],
       },

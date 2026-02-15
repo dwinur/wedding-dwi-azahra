@@ -118,14 +118,14 @@ export const MusicPlayer = forwardRef<MusicPlayerRef, MusicPlayerProps>(function
         <Music
           className={isPlaying ? 'animate-pulse' : ''}
           size={20}
-          style={{ color: '#8B9DC3' }}
+          style={{ color: '#E0115F' }}
         />
 
         {/* Control Button */}
         <button
           onClick={togglePlay}
           className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-          style={{ backgroundColor: '#8B9DC3' }}
+          style={{ backgroundColor: '#E0115F' }}
           aria-label={isPlaying ? 'Pause' : 'Play'}
         >
           {isPlaying ? (

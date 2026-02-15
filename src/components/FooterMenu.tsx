@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Home, Users, Calendar, MapPin, MessageCircle } from 'lucide-react'
+import { Flower2, Users, Calendar, MapPin, Gift, MessageCircle } from 'lucide-react'
 
 interface FooterMenuProps {
   activeSection: number
@@ -10,54 +10,46 @@ interface FooterMenuProps {
 
 export function FooterMenu({ activeSection, onNavigate }: FooterMenuProps) {
   const menuItems = [
-    { icon: Home, label: 'Home', section: 0 },
-    { icon: Users, label: 'Pengantin', section: 2 },
-    { icon: Calendar, label: 'Acara', section: 3 },
-    { icon: MapPin, label: 'Lokasi', section: 5 },
-    { icon: MessageCircle, label: 'Ucapan', section: 7 },
+    { icon: Flower2, label: 'Home', sections: [0, 1], target: 0 },
+    { icon: Users, label: 'Pengantin', sections: [2], target: 2 },
+    { icon: Calendar, label: 'Acara', sections: [3, 4], target: 3 },
+    { icon: MapPin, label: 'Lokasi', sections: [5], target: 5 },
+    { icon: Gift, label: 'Gift', sections: [6], target: 6 },
+    { icon: MessageCircle, label: 'RSVP', sections: [7, 8], target: 7 },
   ]
 
   return (
-    <footer
-      className="fixed bottom-0 left-0 right-0 backdrop-blur-lg z-40 shadow-lg"
-      style={{
-        backgroundColor: 'rgba(245, 240, 232, 0.95)',
-        borderTop: '1px solid #EDE5D8'
-      }}
-    >
-      <nav className="max-w-7xl mx-auto px-4">
-        <ul className="flex justify-around items-center h-16">
-          {menuItems.map((item) => {
-            const Icon = item.icon
-            const isActive = activeSection === item.section
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-md">
+      <div
+        className="bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-white/20 p-2 flex items-center justify-between"
+        style={{ boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)' }}
+      >
+        {menuItems.map((item) => {
+          const isActive = item.sections.includes(activeSection)
+          const Icon = item.icon
 
-            return (
-              <li key={item.label}>
-                <button
-                  onClick={() => onNavigate(item.section)}
-                  className="flex flex-col items-center gap-1 px-4 py-2 transition-all duration-300"
-                  style={{
-                    color: isActive ? '#8B5A5A' : '#8B8B8B'
-                  }}
-                >
-                  <Icon
-                    size={20}
-                    strokeWidth={2}
-                    className={`transition-transform duration-300 ${isActive ? 'scale-110' : ''
-                      }`}
-                  />
-                  <span
-                    className="text-xs"
-                    style={{ fontFamily: 'var(--font-cormorant), Georgia, serif' }}
-                  >
-                    {item.label}
-                  </span>
-                </button>
-              </li>
-            )
-          })}
-        </ul>
-      </nav>
-    </footer>
+          return (
+            <button
+              key={item.label}
+              onClick={() => onNavigate(item.target)}
+              className={`flex flex-col items-center justify-center p-2 rounded-full transition-all duration-300 w-14 h-14 ${isActive
+                ? 'bg-pink-50 text-[#E0115F] transform -translate-y-2 shadow-sm'
+                : 'text-gray-400 hover:text-[#E0115F] hover:bg-pink-50/50'
+                }`}
+            >
+              <Icon
+                size={20}
+                className={`transition-all duration-300 ${isActive ? 'scale-110' : 'scale-100'}`}
+                strokeWidth={isActive ? 2.5 : 2}
+              />
+              <span className={`text-[10px] font-medium mt-1 transition-all duration-300 ${isActive ? 'opacity-100 font-bold' : 'opacity-0 h-0 w-0 overflow-hidden'
+                }`}>
+                {item.label}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
   )
 }

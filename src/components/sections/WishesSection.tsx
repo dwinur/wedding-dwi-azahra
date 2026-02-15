@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Heart, Check, X } from 'lucide-react'
+import { Heart, Check, X, Send } from 'lucide-react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/id'
@@ -16,57 +16,6 @@ interface WishesSectionProps {
   groupId?: string
   guestName?: string
 }
-
-// Decorative Star Component
-const Star = ({ className = "", size = 16 }: { className?: string; size?: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-  </svg>
-);
-
-// Decorative Butterfly Component
-const Butterfly = ({ className = "" }: { className?: string }) => (
-  <svg width="32" height="26" viewBox="0 0 40 32" fill="none" className={className}>
-    <ellipse cx="10" cy="12" rx="9" ry="11" fill="#A8B6D1" opacity="0.8" />
-    <ellipse cx="30" cy="12" rx="9" ry="11" fill="#A8B6D1" opacity="0.8" />
-    <ellipse cx="8" cy="24" rx="5" ry="7" fill="#D4BFBF" opacity="0.8" />
-    <ellipse cx="32" cy="24" rx="5" ry="7" fill="#D4BFBF" opacity="0.8" />
-    <rect x="19" y="6" width="2" height="20" rx="1" fill="#6B6B6B" />
-  </svg>
-);
-
-// Decorative Flower Component
-const Flower = ({ className = "" }: { className?: string }) => (
-  <svg width="32" height="40" viewBox="0 0 32 40" fill="none" className={className}>
-    <circle cx="16" cy="12" r="5" fill="#D4A84B" />
-    <ellipse cx="16" cy="5" rx="4" ry="5" fill="#D4BFBF" />
-    <ellipse cx="10" cy="10" rx="4" ry="5" fill="#D4BFBF" transform="rotate(-45 10 10)" />
-    <ellipse cx="22" cy="10" rx="4" ry="5" fill="#D4BFBF" transform="rotate(45 22 10)" />
-    <ellipse cx="10" cy="14" rx="4" ry="5" fill="#D4BFBF" transform="rotate(-135 10 14)" />
-    <ellipse cx="22" cy="14" rx="4" ry="5" fill="#D4BFBF" transform="rotate(135 22 14)" />
-    <path d="M16 17 L16 38" stroke="#7BA7A7" strokeWidth="2" />
-    <ellipse cx="12" cy="28" rx="4" ry="2" fill="#7BA7A7" transform="rotate(-30 12 28)" />
-    <ellipse cx="20" cy="32" rx="4" ry="2" fill="#7BA7A7" transform="rotate(30 20 32)" />
-  </svg>
-);
-
-// Small Flower for decoration border
-const SmallFlower = ({ color = "#C4A5A5" }: { color?: string }) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="2" fill={color} />
-    <ellipse cx="8" cy="4" rx="2" ry="2.5" fill={color} opacity="0.6" />
-    <ellipse cx="5" cy="7" rx="2" ry="2.5" fill={color} opacity="0.6" transform="rotate(-45 5 7)" />
-    <ellipse cx="11" cy="7" rx="2" ry="2.5" fill={color} opacity="0.6" transform="rotate(45 11 7)" />
-    <ellipse cx="5" cy="10" rx="2" ry="2.5" fill={color} opacity="0.6" transform="rotate(-135 5 10)" />
-    <ellipse cx="11" cy="10" rx="2" ry="2.5" fill={color} opacity="0.6" transform="rotate(135 11 10)" />
-  </svg>
-);
 
 export function WishesSection({ guestId, groupId, guestName }: WishesSectionProps) {
   const [name, setName] = useState(guestName || '')
@@ -91,7 +40,6 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
     }
 
     if (!guestId || !groupId) {
-      // Fallback: create wish without guest/group reference
       alert('Terima kasih atas ucapannya!')
       setMessage('')
       return
@@ -116,9 +64,9 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
 
   const getStatusIcon = (wishStatus: number) => {
     if (wishStatus === 1) {
-      return <Check style={{ color: '#7BA7A7' }} size={16} />
+      return <Check style={{ color: '#16407F' }} size={16} />
     }
-    return <X style={{ color: '#C4A5A5' }} size={16} />
+    return <X style={{ color: '#E0115F' }} size={16} />
   }
 
   const getStatusText = (wishStatus: number) => {
@@ -128,108 +76,121 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
   return (
     <div
       className="min-h-screen flex items-center justify-center px-6 md:px-12 py-24 pb-32 relative overflow-hidden"
-      style={{ backgroundColor: '#F5F0E8' }}
+      style={{
+        backgroundImage: 'url(/images/bg-pengantin.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      {/* Decorative flower border at top */}
-      <div className="absolute top-0 left-0 right-0 flex justify-center gap-2 py-2 overflow-hidden">
-        {Array.from({ length: 25 }).map((_, i) => (
-          <SmallFlower key={i} color={i % 2 === 0 ? "#C4A5A5" : "#8B9DC3"} />
-        ))}
-      </div>
-
-      {/* Decorative Elements */}
-      <Star className="absolute top-[10%] left-[8%] text-mustard animate-twinkle" size={14} />
-      <Star className="absolute top-[15%] right-[10%] text-mustard animate-twinkle" size={12} />
-      <Star className="absolute bottom-[20%] left-[15%] text-mustard animate-twinkle" size={10} />
-
-      <div className="absolute top-[12%] left-[3%] animate-flutter">
-        <Butterfly />
-      </div>
-
-      <div className="absolute bottom-[10%] left-[5%]">
-        <Flower />
-      </div>
-      <div className="absolute bottom-[15%] right-[8%]">
-        <Flower />
-      </div>
-
-      <div className="max-w-4xl mx-auto w-full relative z-10">
+      <div className="max-w-md mx-auto w-full relative z-10">
         {/* Section Title */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-6">
           <h2
-            className="text-3xl md:text-4xl mb-4"
-            style={{
-              fontFamily: 'var(--font-caveat), cursive',
-              color: '#5B8A8A'
-            }}
-          >
-            Ucapan & RSVP
-          </h2>
-          <p
-            className="max-w-lg mx-auto"
             style={{
               fontFamily: 'var(--font-patrick), cursive',
-              color: '#6B6B6B'
+              color: '#16407F',
+              fontSize: '38px',
             }}
           >
-            Berikan ucapan terbaik untuk kedua mempelai<br />& Konfirmasi kehadiran
+            Ucapan &amp; RSVP
+          </h2>
+          <p
+            className="mt-2"
+            style={{
+              fontFamily: 'var(--font-caveat-brush), cursive',
+              color: '#E0115F',
+              fontSize: '16px',
+            }}
+          >
+            Berikan ucapan terbaik untuk kedua mempelai<br />&amp; Konfirmasi kehadiran
           </p>
         </div>
 
         {/* Wish Form */}
         <div className="mb-12">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Nama Lengkap */}
             <div>
+              <label
+                className="block mb-2"
+                style={{
+                  fontFamily: 'var(--font-patrick), cursive',
+                  color: '#16407F',
+                  fontSize: '16px'
+                }}
+              >
+                Nama Lengkap
+              </label>
               <input
                 type="text"
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 text-white"
+                className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30"
                 style={{
-                  backgroundColor: '#8B9DC3',
-                  fontFamily: 'var(--font-patrick), cursive'
+                  backgroundColor: 'white',
+                  fontFamily: 'var(--font-patrick), cursive',
+                  color: '#16407F',
+                  border: '1px solid #e5e5e5'
                 }}
-                placeholder="Nama Kamu"
+                placeholder="Nama Lengkap"
                 required
               />
             </div>
 
+            {/* Ucapan */}
             <div>
+              <label
+                className="block mb-2"
+                style={{
+                  fontFamily: 'var(--font-patrick), cursive',
+                  color: '#16407F',
+                  fontSize: '16px'
+                }}
+              >
+                Ucapan
+              </label>
               <textarea
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                rows={4}
-                className="w-full px-6 py-4 rounded-2xl focus:outline-none focus:ring-2 resize-none text-white"
+                rows={3}
+                className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E0115F]/30 resize-none"
                 style={{
-                  backgroundColor: '#8B9DC3',
-                  fontFamily: 'var(--font-patrick), cursive'
+                  backgroundColor: 'white',
+                  fontFamily: 'var(--font-patrick), cursive',
+                  color: '#16407F',
+                  border: '1px solid #e5e5e5'
                 }}
-                placeholder="Berikan ucapan & Do'a"
+                placeholder="Text here..."
                 required
               />
             </div>
 
+            {/* Kehadiran */}
             <div>
-              <p
-                className="mb-3 text-center"
+              <label
+                className="block mb-3"
                 style={{
                   fontFamily: 'var(--font-patrick), cursive',
-                  color: '#4A4A4A'
+                  color: '#16407F',
+                  fontSize: '16px'
                 }}
               >
-                Konfirmasi kehadiran
-              </p>
-              <div className="flex gap-4">
+                Kehadiran
+              </label>
+              <div className="flex items-center gap-4">
                 <button
                   type="button"
                   onClick={() => setStatus(1)}
-                  className={`flex-1 px-4 py-3 rounded-2xl transition-all flex items-center justify-center gap-2`}
+                  className="px-8 py-2.5 rounded-full transition-all"
                   style={{
-                    backgroundColor: status === 1 ? '#8B9DC3' : '#D4BFBF',
-                    color: 'white',
-                    fontFamily: 'var(--font-patrick), cursive'
+                    backgroundColor: status === 1 ? '#E0115F' : 'transparent',
+                    color: status === 1 ? 'white' : '#999',
+                    fontFamily: 'var(--font-patrick), cursive',
+                    fontSize: '16px',
+                    border: status === 1 ? 'none' : '1px solid #ddd'
                   }}
                 >
                   Hadir
@@ -237,11 +198,14 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
                 <button
                   type="button"
                   onClick={() => setStatus(0)}
-                  className={`flex-1 px-4 py-3 rounded-2xl transition-all flex items-center justify-center gap-2`}
+                  className="px-8 py-2.5 rounded-full transition-all"
                   style={{
-                    backgroundColor: status === 0 ? '#8B9DC3' : '#D4BFBF',
-                    color: 'white',
-                    fontFamily: 'var(--font-patrick), cursive'
+                    backgroundColor: status === 0 ? '#E0115F' : 'transparent',
+                    color: status === 0 ? 'white' : '#999',
+                    fontFamily: 'var(--font-patrick), cursive',
+                    fontSize: '16px',
+                    fontStyle: 'italic',
+                    border: status === 0 ? 'none' : 'none'
                   }}
                 >
                   Tidak Hadir
@@ -249,30 +213,34 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={createWish.isPending}
-              className="w-full px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] shadow-md inline-flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{
-                backgroundColor: '#8B9DC3',
-                color: 'white',
-                fontFamily: 'var(--font-patrick), cursive',
-                fontSize: '1.1rem'
-              }}
-            >
-              {createWish.isPending ? 'Mengirim...' : 'KIRIM'}
-            </button>
+            {/* Send Button */}
+            <div className="flex justify-center pt-2">
+              <button
+                type="submit"
+                disabled={createWish.isPending}
+                className="px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-md inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: '#E0115F',
+                  color: 'white',
+                  fontFamily: 'var(--font-patrick), cursive',
+                  fontSize: '16px'
+                }}
+              >
+                <Send size={18} />
+                {createWish.isPending ? 'Mengirim...' : 'Send'}
+              </button>
+            </div>
           </form>
         </div>
 
         {/* Wishes List */}
         <div className="space-y-4">
           <h3
-            className="text-xl mb-6 text-center"
+            className="text-center mb-6"
             style={{
-              fontFamily: 'var(--font-caveat), cursive',
-              color: '#5B8A8A',
-              fontSize: '1.5rem'
+              fontFamily: 'var(--font-patrick), cursive',
+              color: '#16407F',
+              fontSize: '20px'
             }}
           >
             Ucapan Terbaru ({wishes.data?.length || 0})
@@ -283,7 +251,7 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
               className="text-center"
               style={{
                 fontFamily: 'var(--font-patrick), cursive',
-                color: '#8B8B8B'
+                color: '#999'
               }}
             >
               Memuat ucapan...
@@ -295,15 +263,15 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
                 className="rounded-2xl p-5 transition-all shadow-sm"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                  border: '1px solid #EDE5D8'
+                  border: '1px solid #f0f0f0'
                 }}
               >
                 <div className="flex items-start gap-4">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: '#D4BFBF' }}
+                    style={{ backgroundColor: 'rgba(224, 17, 95, 0.12)' }}
                   >
-                    <Heart style={{ color: '#8B5A5A' }} size={18} />
+                    <Heart style={{ color: '#E0115F' }} size={18} />
                   </div>
 
                   <div className="flex-1">
@@ -311,24 +279,27 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
                       <div>
                         <h4
                           style={{
-                            fontFamily: 'var(--font-caveat), cursive',
-                            color: '#4A4A4A',
+                            fontFamily: 'var(--font-patrick), cursive',
+                            color: '#16407F',
                             fontWeight: 600,
-                            fontSize: '1.2rem'
+                            fontSize: '1.1rem'
                           }}
                         >
                           {wish.name}
                         </h4>
                         <div className="flex items-center gap-1 text-xs mt-1">
                           {getStatusIcon(wish.status)}
-                          <span style={{ color: wish.status === 1 ? '#7BA7A7' : '#C4A5A5', fontFamily: 'var(--font-patrick), cursive' }}>
+                          <span style={{
+                            color: wish.status === 1 ? '#16407F' : '#E0115F',
+                            fontFamily: 'var(--font-patrick), cursive'
+                          }}>
                             {getStatusText(wish.status)}
                           </span>
                         </div>
                       </div>
                       <span
                         className="text-xs"
-                        style={{ color: '#8B8B8B', fontFamily: 'var(--font-patrick), cursive' }}
+                        style={{ color: '#999', fontFamily: 'var(--font-patrick), cursive' }}
                       >
                         {dayjs(wish.createdAt).fromNow()}
                       </span>
@@ -337,7 +308,7 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
                       className="leading-relaxed"
                       style={{
                         fontFamily: 'var(--font-patrick), cursive',
-                        color: '#6B6B6B'
+                        color: '#555'
                       }}
                     >
                       {wish.description}
@@ -351,7 +322,7 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
               className="text-center"
               style={{
                 fontFamily: 'var(--font-patrick), cursive',
-                color: '#8B8B8B'
+                color: '#999'
               }}
             >
               Belum ada ucapan. Jadilah yang pertama!

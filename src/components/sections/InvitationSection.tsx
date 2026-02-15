@@ -7,81 +7,97 @@ export function InvitationSection() {
   return (
     <div
       className="min-h-screen flex items-center justify-center relative overflow-hidden section"
-      style={{ backgroundColor: '#F5F0E8' }}
+      style={{
+        backgroundImage: 'url(/images/bg-home-2.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      {/* PNG Frame Overlay */}
-      <div className="absolute inset-[-20%] z-0 pointer-events-none">
+
+
+      {/* Top Right Decoration */}
+      <div className="absolute top-0 right-0 z-10 w-48 md:w-64 animate-flutter origin-top-right">
         <Image
-          src="/images/bg-bacaan-undangan.png"
-          alt=""
-          fill
+          src="/images/bg-top-right-homepage.png"
+          alt="Decoration"
+          width={300}
+          height={300}
           className="object-contain"
-          priority
         />
       </div>
 
-      {/* Content - Transparent (Centered) */}
-      <div className="relative z-10 w-full max-w-md mx-auto text-center px-6 py-16">
+      {/* Content */}
+      <div
+        className="relative z-10 w-full max-w-md mx-auto text-center px-6 pt-[16rem] pb-[24rem] flex flex-col items-center justify-center h-full gap-6"
+        style={{
+          backgroundImage: 'url(/images/bg-footer-home-2.png)',
+          backgroundSize: '100% auto',
+          backgroundPosition: 'bottom',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
 
         {/* Bismillah */}
         <p
-          className="text-2xl md:text-3xl mb-6"
+          className="text-3xl md:text-4xl"
           style={{
-            fontFamily: "var(--font-amiri), 'Amiri', serif",
-            color: '#5B8A8A'
+            fontFamily: "var(--font-amiri)",
+            color: '#16407F',
+            fontWeight: 'bold'
           }}
         >
           بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
         </p>
 
-        {/* Salam */}
+        {/* Intro Text */}
         <p
-          className="text-xl md:text-2xl mb-8"
+          className="text-sm md:text-base max-w-xs mx-auto leading-relaxed"
           style={{
             fontFamily: 'var(--font-patrick), cursive',
-            color: '#8B5A5A',
-            fontWeight: 500
+            color: '#E0115F'
           }}
         >
-          Assalamu&apos;alaikum Wr. Wb.
+          Doa Rasullulah SAW kepada seseorang ketika menikah
         </p>
 
-        {/* Surat Ar-Rum Ayat 21 */}
-        <div className="mb-8">
+        {/* Arabic Quote */}
+        <div>
           <p
-            className="text-base md:text-lg italic leading-relaxed"
+            className="text-lg md:text-xl leading-relaxed uppercase"
             style={{
               fontFamily: 'var(--font-patrick), cursive',
-              color: '#5B8A8A'
+              color: '#E0115F'
             }}
           >
-            "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri..."
-          </p>
-          <p
-            className="text-lg md:text-xl mt-3"
-            style={{
-              fontFamily: 'var(--font-caveat), cursive',
-              color: '#5B8A8A'
-            }}
-          >
-            QS Ar-Rum ayat 21
+            "BAARAKALLAHU LAKA WA BAARAKA ’ALAIKA WA JAMA’A BAINAKUMAA FII KHAIRIN"
           </p>
         </div>
 
-        {/* Invitation Text */}
-        <div
-          className="space-y-2 text-base md:text-lg leading-relaxed"
+        {/* Translation */}
+        <div>
+          <p
+            className="text-base md:text-lg leading-relaxed"
+            style={{
+              fontFamily: 'var(--font-patrick), cursive',
+              color: '#E0115F'
+            }}
+          >
+            Semoga Allah memberkahimu dan senantiasa memberkahimu; dan mengumpulkan kalian berdua dalam kebaikan.
+          </p>
+        </div>
+
+        {/* Source */}
+        <p
+          className="text-sm md:text-base italic"
           style={{
             fontFamily: 'var(--font-patrick), cursive',
-            color: '#6B6B6B'
+            color: '#16407F'
           }}
         >
-          <p>Dengan memohon rahmat dan ridho Allah SWT,</p>
-          <p>kami mengundang Bapak/Ibu/Saudara/i</p>
-          <p>untuk hadir dalam pernikahan kami.</p>
-        </div>
-
+          -HR Ahmad Abu Dawud, At Tirmidzi
+        </p>
       </div>
-    </div>
+    </div >
   )
 }

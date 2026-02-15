@@ -2,33 +2,35 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { ChevronUp } from 'lucide-react'
 
 export function ClosingSection() {
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden section"
-      style={{ backgroundColor: '#F5F0E8' }}
+      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden section"
+      style={{
+        backgroundImage: 'url(/images/bg-pengantin.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      {/* PNG Frame Overlay */}
-      <div className="absolute inset-[-20%] z-0 pointer-events-none">
-        <Image
-          src="/images/bg-closing.png"
-          alt=""
-          fill
-          className="object-contain"
-        />
-      </div>
-
-      {/* Content - Transparent with negative margin */}
-      <div className="relative z-10 w-full max-w-md mx-auto text-center px-6 py-16" style={{ marginTop: '-15vh' }}>
-
+      {/* Content with bg-footer-home-2 */}
+      <div
+        className="relative z-10 w-full max-w-md mx-auto text-center px-6 pt-[10rem] pb-[24rem] flex flex-col items-center justify-center h-full gap-4"
+        style={{
+          backgroundImage: 'url(/images/bg-footer-home-2.png)',
+          backgroundSize: '100% auto',
+          backgroundPosition: 'bottom',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         {/* Main Message */}
         <p
-          className="mb-8 leading-relaxed text-base md:text-lg"
+          className="leading-relaxed"
           style={{
             fontFamily: 'var(--font-patrick), cursive',
-            color: '#6B6B6B'
+            color: '#16407A',
+            fontSize: '16px'
           }}
         >
           Atas kehadiran dan do&apos;a restu<br />
@@ -38,11 +40,10 @@ export function ClosingSection() {
 
         {/* Salam */}
         <p
-          className="text-2xl md:text-3xl mb-8"
           style={{
-            fontFamily: 'var(--font-caveat), cursive',
-            color: '#4A4A4A',
-            fontWeight: 600
+            fontFamily: 'var(--font-caveat-brush), cursive',
+            color: '#E0115F',
+            fontSize: '24px',
           }}
         >
           Wassalamu&apos;alaikum Wr. Wb
@@ -50,39 +51,51 @@ export function ClosingSection() {
 
         {/* Kami yang berbahagia */}
         <p
-          className="mb-4 text-base md:text-lg"
           style={{
             fontFamily: 'var(--font-patrick), cursive',
-            color: '#8B5A5A',
-            fontStyle: 'italic'
+            color: '#16407A',
+            fontSize: '16px'
           }}
         >
           Kami yang berbahagia
         </p>
 
+        {/* Logo Nama A&D */}
+        <div className="relative w-48 h-48 my-2">
+          <Image
+            src="/images/logo-nama.png"
+            alt="A&D"
+            fill
+            className="object-contain"
+          />
+        </div>
+
         {/* Signature */}
         <h2
-          className="text-5xl md:text-6xl"
           style={{
-            fontFamily: 'var(--font-caveat), cursive',
-            color: '#8B5A5A'
+            fontFamily: 'var(--font-caveat-brush), cursive',
+            color: '#16407F',
+            fontSize: '36px'
           }}
         >
-          Azahra & Dwi
+          Azahra &amp; Dwi
         </h2>
       </div>
 
-      {/* Floating Back to Top Button */}
+      {/* Back to Top Button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-6 right-20 z-50 w-12 h-12 flex items-center justify-center rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+        className="fixed bottom-24 md:bottom-6 right-6 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 group hover:scale-110"
         style={{
-          backgroundColor: '#8B9DC3',
-          color: 'white'
+          border: '2px solid #ffffff',
+          backgroundColor: 'transparent',
+          borderRadius: '40% 60% 60% 40% / 60% 40%'
         }}
         aria-label="Back to top"
       >
-        <ChevronUp size={24} />
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-colors group-hover:text-white" style={{ color: '#ffffff' }}>
+          <path d="m18 15-6-6-6 6" />
+        </svg>
       </button>
     </div>
   )

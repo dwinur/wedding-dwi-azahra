@@ -1,185 +1,220 @@
 'use client'
 
-import React from 'react'
-import { MapPin } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-
-// Rings Icon Component
-const RingsIcon = () => (
-  <svg width="48" height="32" viewBox="0 0 48 32" fill="none">
-    <circle cx="16" cy="16" r="10" stroke="#8B9DC3" strokeWidth="2" fill="none" />
-    <circle cx="32" cy="16" r="10" stroke="#8B9DC3" strokeWidth="2" fill="none" />
-  </svg>
-);
+import { Calendar } from 'lucide-react'
 
 export function EventDetailsSection() {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+
+  useEffect(() => {
+    const targetDate = new Date('2026-04-12T09:00:00').getTime()
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime()
+      const difference = targetDate - now
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+        setTimeLeft({ days, hours, minutes, seconds })
+      } else {
+        clearInterval(interval)
+      }
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden section"
-      style={{ backgroundColor: '#F5F0E8' }}
+      className="min-h-screen flex flex-col items-center relative overflow-hidden section"
+      style={{
+        backgroundImage: 'url(/images/bg-pengantin.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      {/* PNG Frame Overlay */}
-      <div className="absolute inset-[-20%] z-0 pointer-events-none">
+
+      {/* ============================================ */}
+      {/* TOP HEADER: bg-flower-green-top + 3 flowers  */}
+      {/* ============================================ */}
+      <div className="relative w-full z-10">
+
+        {/* Background: bg-flower-green-top (full width, auto height) */}
+        <div className="w-full">
+          <Image
+            src="/images/bg-flower-green-top.png"
+            alt=""
+            width={800}
+            height={300}
+            className="w-full h-auto object-contain"
+            priority
+          />
+        </div>
+
+        {/* 3 Flowers positioned on top of the green bg */}
+        {/* Flower Top-Left */}
+        <div className="absolute top-0 left-0 z-10 w-[40%] md:w-[30%] animate-gentle-breeze origin-top-left" style={{ top: '5.5rem', left: '-3.5rem' }}>
+          <Image
+            src="/images/flower-big-top-left.png"
+            alt="Flower Left"
+            width={300}
+            height={300}
+            className="object-contain w-full h-auto"
+            priority
+          />
+        </div>
+
+        {/* Flower Top-Center */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 w-[40%] md:w-[32%] origin-top" style={{ top: '1rem' }}>
+          <Image
+            src="/images/flower-big-top.png"
+            alt="Flower Center"
+            width={300}
+            height={300}
+            className="object-contain w-full h-auto"
+            priority
+          />
+        </div>
+
+        {/* Flower Top-Right */}
+        <div className="absolute top-0 right-0 z-10 w-[40%] md:w-[30%] animate-gentle-breeze origin-top-right" style={{ top: '6.5rem', right: '-1.5rem' }}>
+          <Image
+            src="/images/flower-big-top-right.png"
+            alt="Flower Right"
+            width={300}
+            height={300}
+            className="object-contain w-full h-auto"
+            priority
+          />
+        </div>
+
+      </div>
+
+      {/* ============================================ */}
+      {/* MAIN CONTENT                                 */}
+      {/* ============================================ */}
+      <div className="relative z-20 flex flex-col items-center text-center gap-5 px-6 w-full max-w-md mt-4 pb-32" style={{ paddingTop: '12rem' }}>
+
+        {/* Header Text */}
+        <p
+          className="text-base md:text-lg text-[#E0115F] leading-relaxed max-w-[280px] mx-auto"
+          style={{ fontFamily: 'var(--font-patrick), cursive' }}
+        >
+          Kami akan menikah, dan kami ingin anda menjadi bagian dari hari istimewa kami!
+        </p>
+
+        {/* Date Display */}
+        <h2
+          className="text-3xl md:text-4xl font-bold text-[#16407F]"
+          style={{ fontFamily: 'var(--font-caveat-brush), cursive' }}
+        >
+          Minggu, 12 April 2026
+        </h2>
+
+        {/* Time Details - 2 rows */}
+        <div className="w-full flex flex-col gap-2">
+          {/* Akad Row */}
+          <div className="flex items-center justify-between px-6">
+            <span
+              className="text-3xl md:text-4xl font-bold text-[#16407F]"
+              style={{ fontFamily: 'var(--font-caveat-brush), cursive' }}
+            >
+              Akad
+            </span>
+            <span
+              className="text-2xl md:text-3xl text-[#16407F] font-bold"
+              style={{ fontFamily: 'var(--font-caveat-brush), sans-serif' }}
+            >
+              09.00 AM
+            </span>
+          </div>
+
+          {/* Reception Row */}
+          <div className="flex items-center justify-between px-6">
+            <span
+              className="text-3xl md:text-4xl font-bold text-[#16407F]"
+              style={{ fontFamily: 'var(--font-caveat-brush), cursive' }}
+            >
+              Reception
+            </span>
+            <span
+              className="text-2xl md:text-3xl text-[#16407F] font-bold"
+              style={{ fontFamily: 'var(--font-caveat-brush), sans-serif' }}
+            >
+              11.00 AM
+            </span>
+          </div>
+        </div>
+
+        {/* Countdown Timer */}
+        <div className="flex gap-3 md:gap-4 justify-center mt-4">
+          {[
+            { label: 'Hari', value: timeLeft.days },
+            { label: 'Jam', value: timeLeft.hours },
+            { label: 'Menit', value: timeLeft.minutes },
+            { label: 'Detik', value: timeLeft.seconds },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col items-center gap-1">
+              <div
+                className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-[#16407F] text-white flex items-center justify-center text-2xl md:text-3xl shadow-lg border-2 border-[#16407F]"
+                style={{ fontFamily: 'var(--font-caveat-brush), sans-serif' }}
+              >
+                {item.value}
+              </div>
+              <span className="text-xs text-[#16407F] font-semibold uppercase tracking-wider"
+                style={{ fontFamily: 'var(--font-caveat-brush), sans-serif' }}>
+                {item.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Save The Date Button */}
+        <button
+          className="mt-4 px-8 py-3 bg-[#E0115F] text-white rounded-full flex items-center gap-2 shadow-lg hover:scale-105 transition-all duration-300"
+          onClick={() => {
+            const text = encodeURIComponent('Pernikahan Dwi & Azahra')
+            const dates = '20260412T090000/20260412T130000'
+            const details = encodeURIComponent('Resepsi Pernikahan Dwi & Azahra')
+            const location = encodeURIComponent('Gedung Serbaguna')
+            window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}&location=${location}`, '_blank')
+          }}
+        >
+          <Calendar size={20} className="text-white" />
+          <span
+            className="text-lg font-bold"
+            style={{ fontFamily: 'var(--font-patrick), cursive' }}
+          >
+            Save The Date
+          </span>
+        </button>
+      </div>
+
+
+      {/* ============================================ */}
+      {/* BOTTOM: Green Botanical Decorations           */}
+      {/* ============================================ */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none animate-gentle-breeze origin-bottom">
         <Image
-          src="/images/bg-save-date.png"
+          src="/images/flower-footer-date.png"
           alt=""
-          fill
-          className="object-contain"
+          width={800}
+          height={300}
+          className="w-full h-auto object-contain"
         />
       </div>
 
-      {/* Content - Transparent with negative margin */}
-      <div className="relative z-10 w-full max-w-sm mx-auto text-center px-4" style={{ marginTop: '-18vh' }}>
-
-        {/* Section Title */}
-        <div className="text-center mb-6">
-          <p
-            className="text-4xl md:text-5xl mb-2"
-            style={{
-              fontFamily: 'var(--font-caveat), cursive',
-              color: '#8B9DC3'
-            }}
-          >
-            Save The Date
-          </p>
-          <p
-            className="text-3xl md:text-4xl mb-3"
-            style={{
-              fontFamily: 'var(--font-patrick), cursive',
-              color: '#8B5A5A'
-            }}
-          >
-            April 2026
-          </p>
-          <div className="w-16 h-1 mx-auto rounded" style={{ backgroundColor: '#D4A84B' }} />
-        </div>
-
-        {/* Calendar Week Display */}
-        <div className="text-center mb-6">
-          <div className="flex justify-center gap-2 mb-2">
-            {['S', 'S', 'R', 'K', 'J', 'S'].map((day, i) => (
-              <span
-                key={i}
-                className="text-sm md:text-base w-6 md:w-8"
-                style={{
-                  fontFamily: 'var(--font-patrick), cursive',
-                  color: '#8B9DC3'
-                }}
-              >
-                {day}
-              </span>
-            ))}
-            <span
-              className="text-sm md:text-base font-bold w-6 md:w-8"
-              style={{
-                fontFamily: 'var(--font-patrick), cursive',
-                color: '#8B5A5A'
-              }}
-            >
-              M
-            </span>
-          </div>
-          <div className="flex justify-center gap-2 items-center">
-            {[6, 7, 8, 9, 10, 11].map((date) => (
-              <span
-                key={date}
-                className="text-lg md:text-xl w-6 md:w-8"
-                style={{
-                  fontFamily: 'var(--font-patrick), cursive',
-                  color: '#8B9DC3'
-                }}
-              >
-                {date}
-              </span>
-            ))}
-            <div
-              className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white text-xl md:text-2xl font-bold"
-              style={{ backgroundColor: '#8B5A5A' }}
-            >
-              12
-            </div>
-          </div>
-        </div>
-
-        {/* Akad & Reception */}
-        <div className="flex justify-center items-center gap-6 md:gap-8 mb-6">
-          <div className="text-center">
-            <p
-              className="text-xl md:text-2xl mb-1"
-              style={{
-                fontFamily: 'var(--font-caveat), cursive',
-                color: '#4A4A4A'
-              }}
-            >
-              Akad
-            </p>
-            <p
-              className="text-base md:text-lg"
-              style={{
-                fontFamily: 'var(--font-patrick), cursive',
-                color: '#8B9DC3'
-              }}
-            >
-              09.00
-            </p>
-          </div>
-
-          <RingsIcon />
-
-          <div className="text-center">
-            <p
-              className="text-xl md:text-2xl mb-1"
-              style={{
-                fontFamily: 'var(--font-caveat), cursive',
-                color: '#4A4A4A'
-              }}
-            >
-              Reception
-            </p>
-            <p
-              className="text-base md:text-lg"
-              style={{
-                fontFamily: 'var(--font-patrick), cursive',
-                color: '#8B9DC3'
-              }}
-            >
-              11.00
-            </p>
-          </div>
-        </div>
-
-        {/* Location */}
-        <div className="text-center mb-6">
-          <p
-            className="text-lg md:text-xl"
-            style={{
-              fontFamily: 'var(--font-patrick), cursive',
-              color: '#4A4A4A'
-            }}
-          >
-            Ballroom Masjid Jami&apos; An-Noor
-          </p>
-        </div>
-
-        {/* Google Maps Button */}
-        {/* <div className="text-center">
-          <a
-            href="https://maps.google.com/?q=Masjid+Jami+An-Noor+Ciputat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-md text-base md:text-lg"
-            style={{
-              backgroundColor: '#8B9DC3',
-              color: 'white'
-            }}
-          >
-            <MapPin size={20} />
-            <span style={{ fontFamily: 'var(--font-patrick), cursive' }}>
-              Google Maps
-            </span>
-          </a>
-        </div> */}
-      </div>
     </div>
   )
 }

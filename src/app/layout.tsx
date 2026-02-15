@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Indie_Flower, Patrick_Hand, Inter, Amiri } from "next/font/google";
+import { Caveat, Indie_Flower, Patrick_Hand, Inter, Amiri, Caveat_Brush, Madimi_One } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
@@ -20,6 +20,18 @@ const indieFlower = Indie_Flower({
 // Handwritten font for body text
 const patrickHand = Patrick_Hand({
   variable: "--font-patrick",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const caveatBrush = Caveat_Brush({
+  variable: "--font-caveat-brush",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const madimiOne = Madimi_One({
+  variable: "--font-madimi",
   subsets: ["latin"],
   weight: "400",
 });
@@ -59,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${caveat.variable} ${indieFlower.variable} ${patrickHand.variable} ${amiri.variable} ${inter.variable} antialiased`}
+        className={`${caveat.variable} ${indieFlower.variable} ${patrickHand.variable} ${caveatBrush.variable} ${madimiOne.variable} ${amiri.variable} ${inter.variable} antialiased`}
       >
         <Providers>
           {children}

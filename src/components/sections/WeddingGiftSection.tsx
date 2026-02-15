@@ -4,27 +4,6 @@ import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Gift, X, Copy, Check, CreditCard, Home } from 'lucide-react'
 
-// Envelope Icon Component
-const EnvelopeIcon = () => (
-  <svg width="80" height="60" viewBox="0 0 80 60" fill="none">
-    {/* Envelope body */}
-    <rect x="5" y="10" width="70" height="45" rx="4" fill="#F5F0E8" stroke="#8B9DC3" strokeWidth="2" />
-    {/* Envelope flap */}
-    <path d="M5 14 L40 35 L75 14" fill="none" stroke="#8B9DC3" strokeWidth="2" />
-    {/* Letter inside */}
-    <rect x="15" y="5" width="50" height="35" rx="2" fill="white" stroke="#8B9DC3" strokeWidth="1" />
-    {/* Decorative waves on letter */}
-    <path d="M22 15 Q30 12 38 15 Q46 18 54 15" stroke="#8B9DC3" strokeWidth="1" fill="none" />
-    <path d="M22 22 Q30 19 38 22 Q46 25 54 22" stroke="#8B9DC3" strokeWidth="1" fill="none" />
-    {/* Hearts */}
-    <circle cx="60" cy="8" r="3" fill="#C4A5A5" />
-    <circle cx="65" cy="5" r="2" fill="#D4BFBF" />
-    {/* Small flower/plant */}
-    <path d="M12 8 L12 0" stroke="#7BA7A7" strokeWidth="1" />
-    <circle cx="12" cy="-2" r="2" fill="#8B9DC3" />
-  </svg>
-);
-
 export function WeddingGiftSection() {
   const [showModal, setShowModal] = useState(false)
   const [copiedBank, setCopiedBank] = useState(false)
@@ -69,69 +48,68 @@ export function WeddingGiftSection() {
   return (
     <>
       <div
-        className="min-h-screen flex items-center justify-center px-6 md:px-12 py-24 pb-32"
-        style={{ backgroundColor: '#F5F0E8' }}
+        className="min-h-screen flex flex-col items-center justify-center relative section"
+        style={{
+          backgroundImage: 'url(/images/bg-pengantin.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
-        <div className="max-w-lg mx-auto w-full">
-          {/* Gift Card - Pink Theme like reference */}
-          <div className="flex rounded-3xl overflow-hidden shadow-lg">
-            {/* Left sidebar with vertical text */}
-            <div
-              className="w-16 flex items-center justify-center"
-              style={{ backgroundColor: '#9B7A7A' }}
+        {/* Content with bg-footer-home-2 */}
+        <div
+          className="relative z-10 w-full max-w-md mx-auto text-center px-6 pt-[16rem] pb-[24rem] flex flex-col items-center justify-center h-full gap-6"
+          style={{
+            backgroundImage: 'url(/images/bg-footer-home-2.png)',
+            backgroundSize: '100% auto',
+            backgroundPosition: 'bottom',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
+          {/* Title */}
+          <h2
+            className="text-4xl md:text-5xl text-center"
+            style={{
+              fontFamily: 'var(--font-caveat-brush), cursive',
+              color: '#16407F',
+            }}
+          >
+            Tanda Kasih
+          </h2>
+
+          {/* Description */}
+          <p
+            className="text-left max-w-[340px] leading-relaxed"
+            style={{
+              fontFamily: 'var(--font-patrick), cursive',
+              color: '#E0115F',
+              fontSize: '18px',
+            }}
+          >
+            Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih anda, anda dapat memberi kado secara cashless.
+          </p>
+
+          {/* Digital Gift Button */}
+          <button
+            onClick={() => setShowModal(true)}
+            className="inline-flex items-center gap-3 px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-all duration-300"
+            style={{
+              backgroundColor: '#E0115F',
+              color: 'white',
+            }}
+          >
+            <Gift size={20} />
+            <span
+              className="text-lg font-bold"
+              style={{ fontFamily: 'var(--font-patrick), cursive' }}
             >
-              <span
-                className="text-white text-lg tracking-widest whitespace-nowrap"
-                style={{
-                  writingMode: 'vertical-rl',
-                  textOrientation: 'mixed',
-                  transform: 'rotate(180deg)',
-                  fontFamily: 'var(--font-caveat), cursive'
-                }}
-              >
-                WEDDING GIFT
-              </span>
-            </div>
-
-            {/* Main content */}
-            <div
-              className="flex-1 p-8 text-center"
-              style={{ backgroundColor: '#D4BFBF' }}
-            >
-              {/* Envelope illustration */}
-              <div className="flex justify-center mb-6">
-                <EnvelopeIcon />
-              </div>
-
-              <p
-                className="mb-6 leading-relaxed"
-                style={{
-                  fontFamily: 'var(--font-patrick), cursive',
-                  color: '#4A4A4A'
-                }}
-              >
-                Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih anda, anda dapat memberi kado secara cashless.
-              </p>
-
-              <button
-                onClick={() => setShowModal(true)}
-                className="px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-md inline-flex items-center gap-3"
-                style={{
-                  backgroundColor: '#8B9DC3',
-                  color: 'white'
-                }}
-              >
-                <Gift size={20} />
-                <span style={{ fontFamily: 'var(--font-patrick), cursive' }}>
-                  Amplop Digital
-                </span>
-              </button>
-            </div>
-          </div>
+              Digital Gift
+            </span>
+          </button>
         </div>
       </div>
 
-      {/* Modal using Portal */}
+      {/* Modal using Portal - LOGIC UNCHANGED */}
       {mounted && showModal && createPortal(
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
@@ -139,21 +117,26 @@ export function WeddingGiftSection() {
         >
           <div
             className="rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl"
-            style={{ backgroundColor: '#F5F0E8' }}
+            style={{
+              backgroundImage: 'url(/images/bg-pengantin.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
           >
             {/* Modal Header */}
             <div
               className="px-6 py-4 flex items-center justify-between rounded-t-3xl"
               style={{
-                backgroundColor: '#EDE5D8',
-                borderBottom: '1px solid #D4BFBF'
+                backgroundColor: 'rgba(255,255,255,0.3)',
+                borderBottom: '1px solid rgba(22,64,127,0.15)'
               }}
             >
               <h3
                 className="text-xl"
                 style={{
-                  fontFamily: 'var(--font-patrick), cursive',
-                  color: '#4A4A4A'
+                  fontFamily: 'var(--font-caveat-brush), cursive',
+                  color: '#16407F'
                 }}
               >
                 Informasi Pengiriman
@@ -161,9 +144,9 @@ export function WeddingGiftSection() {
               <button
                 onClick={() => setShowModal(false)}
                 className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                style={{ backgroundColor: '#D4BFBF' }}
+                style={{ backgroundColor: 'rgba(224,17,95,0.15)' }}
               >
-                <X style={{ color: '#4A4A4A' }} size={20} />
+                <X style={{ color: '#E0115F' }} size={20} />
               </button>
             </div>
 
@@ -173,28 +156,30 @@ export function WeddingGiftSection() {
               <div
                 className="rounded-2xl p-6"
                 style={{
-                  background: 'linear-gradient(135deg, #D4BFBF 0%, #C4A5A5 100%)'
+                  backgroundColor: 'rgba(255,255,255,0.4)',
+                  border: '1px solid rgba(22,64,127,0.1)'
                 }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.3)' }}
+                    style={{ backgroundColor: 'rgba(224,17,95,0.1)' }}
                   >
-                    <CreditCard style={{ color: '#8B5A5A' }} size={24} />
+                    <CreditCard style={{ color: '#E0115F' }} size={24} />
                   </div>
                   <div>
                     <p
                       className="text-sm"
-                      style={{ color: '#6B5A5A', fontFamily: 'var(--font-patrick), cursive' }}
+                      style={{ color: '#E0115F', fontFamily: 'var(--font-patrick), cursive' }}
                     >
                       Transfer Bank
                     </p>
                     <h4
                       style={{
-                        fontFamily: 'var(--font-patrick), cursive',
-                        color: '#4A4A4A',
-                        fontWeight: 600
+                        fontFamily: 'var(--font-caveat-brush), cursive',
+                        color: '#16407F',
+                        fontWeight: 600,
+                        fontSize: '1.25rem'
                       }}
                     >
                       BCA
@@ -204,26 +189,26 @@ export function WeddingGiftSection() {
 
                 <div
                   className="rounded-xl p-4 mb-3"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
+                  style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
                 >
-                  <p className="text-xs" style={{ color: '#6B5A5A', fontFamily: 'var(--font-patrick), cursive' }}>Nomor Rekening</p>
+                  <p className="text-xs" style={{ color: '#E0115F', fontFamily: 'var(--font-patrick), cursive' }}>Nomor Rekening</p>
                   <p
                     className="text-2xl tracking-wide mb-1"
                     style={{
-                      fontFamily: 'var(--font-patrick), cursive',
-                      color: '#4A4A4A'
+                      fontFamily: 'var(--font-caveat-brush), cursive',
+                      color: '#16407F'
                     }}
                   >
                     {bankAccount}
                   </p>
-                  <p className="text-sm" style={{ color: '#6B5A5A', fontFamily: 'var(--font-patrick), cursive' }}>a.n. {accountName}</p>
+                  <p className="text-sm" style={{ color: '#E0115F', fontFamily: 'var(--font-patrick), cursive' }}>a.n. {accountName}</p>
                 </div>
 
                 <button
                   onClick={() => copyToClipboard(bankAccount, 'bank')}
                   className="w-full px-4 py-2 rounded-full transition-colors inline-flex items-center justify-center gap-2"
                   style={{
-                    backgroundColor: '#8B9DC3',
+                    backgroundColor: '#E0115F',
                     color: 'white',
                     fontFamily: 'var(--font-patrick), cursive'
                   }}
@@ -244,40 +229,42 @@ export function WeddingGiftSection() {
 
               {/* Divider */}
               <div className="flex items-center gap-4">
-                <div className="flex-1 h-px" style={{ backgroundColor: '#D4BFBF' }}></div>
+                <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(22,64,127,0.2)' }}></div>
                 <span
                   className="text-sm"
                   style={{
                     fontFamily: 'var(--font-patrick), cursive',
-                    color: '#8B8B8B'
+                    color: '#16407F'
                   }}
                 >
-                  atau
+                  {/* atau */}
                 </span>
-                <div className="flex-1 h-px" style={{ backgroundColor: '#D4BFBF' }}></div>
+                <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(22,64,127,0.2)' }}></div>
               </div>
 
               {/* Address */}
-              <div
+              {/* <div
                 className="rounded-2xl p-6"
                 style={{
-                  background: 'linear-gradient(135deg, #A8B6D1 0%, #8B9DC3 100%)'
+                  backgroundColor: 'rgba(255,255,255,0.4)',
+                  border: '1px solid rgba(22,64,127,0.1)'
                 }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.3)' }}
+                    style={{ backgroundColor: 'rgba(224,17,95,0.1)' }}
                   >
-                    <Home style={{ color: '#5A6A8B' }} size={24} />
+                    <Home style={{ color: '#E0115F' }} size={24} />
                   </div>
                   <div>
-                    <p className="text-sm" style={{ color: '#D4E0F0', fontFamily: 'var(--font-patrick), cursive' }}>Kirim ke</p>
+                    <p className="text-sm" style={{ color: '#E0115F', fontFamily: 'var(--font-patrick), cursive' }}>Kirim ke</p>
                     <h4
                       style={{
-                        fontFamily: 'var(--font-patrick), cursive',
-                        color: 'white',
-                        fontWeight: 600
+                        fontFamily: 'var(--font-caveat-brush), cursive',
+                        color: '#16407F',
+                        fontWeight: 600,
+                        fontSize: '1.25rem'
                       }}
                     >
                       Alamat Rumah
@@ -287,24 +274,23 @@ export function WeddingGiftSection() {
 
                 <div
                   className="rounded-xl p-4 mb-3"
-                  style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
+                  style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
                 >
                   <p
                     className="leading-relaxed"
-                    style={{ color: 'white', fontFamily: 'var(--font-patrick), cursive' }}
+                    style={{ color: '#16407F', fontFamily: 'var(--font-patrick), cursive' }}
                   >
                     {address}
                   </p>
-                  <p className="text-sm mt-2" style={{ color: '#D4E0F0', fontFamily: 'var(--font-patrick), cursive' }}>a.n. {accountName}</p>
+                  <p className="text-sm mt-2" style={{ color: '#E0115F', fontFamily: 'var(--font-patrick), cursive' }}>a.n. {accountName}</p>
                 </div>
 
                 <button
                   onClick={() => copyToClipboard(address, 'address')}
                   className="w-full px-4 py-2 rounded-full transition-colors inline-flex items-center justify-center gap-2"
                   style={{
-                    backgroundColor: 'rgba(255,255,255,0.3)',
+                    backgroundColor: '#E0115F',
                     color: 'white',
-                    border: '1px solid rgba(255,255,255,0.4)',
                     fontFamily: 'var(--font-patrick), cursive'
                   }}
                 >
@@ -320,7 +306,7 @@ export function WeddingGiftSection() {
                     </>
                   )}
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>,
