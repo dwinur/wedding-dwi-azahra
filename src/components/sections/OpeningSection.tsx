@@ -21,8 +21,9 @@ export function OpeningSection({ guestName, onOpenInvitation }: OpeningSectionPr
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-[800ms] ease-out ${isClosing ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
+      className={`fixed inset-x-0 top-0 z-50 flex items-center justify-center transition-all duration-[800ms] ease-out ${isClosing ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
         }`}
+      style={{ height: '100dvh' }}
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
