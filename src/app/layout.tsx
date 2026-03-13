@@ -76,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <body
         className={`${caveat.variable} ${indieFlower.variable} ${patrickHand.variable} ${caveatBrush.variable} ${madimiOne.variable} ${amiri.variable} ${inter.variable} antialiased`}
       >
