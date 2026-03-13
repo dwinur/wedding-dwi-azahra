@@ -8,9 +8,8 @@ export function LocationSection() {
   const locationUrl = "https://www.google.com/maps/place/Jami'+An-Noor+Ciputat+Mosque/@-6.3275943,106.7475552,17z/data=!4m6!3m5!1s0x2e69efb1eb34cae7:0x1e571996819f743c!8m2!3d-6.3275943!4d106.7475552!16s%2Fg%2F11k4x15wm4"
 
   return (
-    <div className="relative w-full flex flex-col items-center overflow-hidden section"
+    <div className="relative w-full min-h-screen flex flex-col items-center overflow-hidden section"
       style={{
-        minHeight: '100vh',
         backgroundImage: 'url(/images/bg-pengantin.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',

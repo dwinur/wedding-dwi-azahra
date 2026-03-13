@@ -11,7 +11,7 @@ interface CoverSectionProps {
 export function CoverSection({ onScrollToNext, guestName }: CoverSectionProps) {
   return (
     <div
-      className="mobile-full-height w-full relative overflow-hidden flex flex-col items-center justify-center"
+      className="w-full relative overflow-hidden flex flex-col items-center justify-center min-h-screen"
       style={{
         backgroundImage: 'url(/images/bg-home.png)',
         backgroundSize: 'cover',

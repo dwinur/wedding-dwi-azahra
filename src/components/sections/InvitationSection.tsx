@@ -6,7 +6,7 @@ import Image from 'next/image'
 export function InvitationSection() {
   return (
     <div
-      className="flex items-center justify-center relative overflow-hidden section"
+      className="flex flex-col items-center justify-center min-h-screen relative overflow-hidden"
       style={{
         backgroundImage: 'url(/images/bg-home-2.png)',
         backgroundSize: 'cover',

@@ -5,9 +5,8 @@ import Image from 'next/image'
 
 export function FamilySection() {
   return (
-    // Single container for the section
     <div
-      className="w-full max-w-5xl mx-auto py-16 px-4 flex flex-col items-center gap-8 text-[#16407F]"
+      className="w-full max-w-5xl mx-auto py-24 px-4 flex flex-col items-center justify-center min-h-screen gap-8 text-[#16407F]"
       style={{
         backgroundImage: 'url(/images/bg-pengantin.png)',
         backgroundSize: 'cover',
