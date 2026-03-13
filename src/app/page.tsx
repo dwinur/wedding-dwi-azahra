@@ -52,7 +52,7 @@ function HomeContent() {
 
   useEffect(() => {
     if (guestParam && !guestData && !visitMutation.isPending) {
-      visitMutation.mutateAsync({ name: guestParam })
+      visitMutation.mutateAsync([{ name: guestParam }])
         .then((res: any) => {
           if (res?.data) setGuestData(res.data)
         })
