@@ -1,6 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
+import GuestsService from '@/lib/services/guests/guests.service'
 import { OpeningSection } from '@/components/sections/OpeningSection'
 import { CoverSection } from '@/components/sections/CoverSection'
 import { FamilySection } from '@/components/sections/FamilySection'
@@ -28,10 +30,35 @@ const SECTION_IDS = [
 ]
 
 export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-cream"></div>}>
+      <HomeContent />
+    </Suspense>
+  )
+}
+
+function HomeContent() {
   const [isInvitationOpen, setIsInvitationOpen] = useState(false)
   const [isContentVisible, setIsContentVisible] = useState(false)
   const [activeSection, setActiveSection] = useState(0)
   const musicPlayerRef = useRef<MusicPlayerRef>(null)
+  
+  const searchParams = useSearchParams()
+  const guestParam = searchParams.get('guest')
+  const guestName = guestParam || 'Tamu Undangan'
+
+  const visitMutation = GuestsService.VisitGuest.useMutation()
+  const [guestData, setGuestData] = useState<any>(null)
+
+  useEffect(() => {
+    if (guestParam && !guestData && !visitMutation.isPending) {
+      visitMutation.mutateAsync({ name: guestParam })
+        .then((res: any) => {
+          if (res?.data) setGuestData(res.data)
+        })
+        .catch(console.error)
+    }
+  }, [guestParam, guestData, visitMutation])
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true)
@@ -91,7 +118,7 @@ export default function Home() {
       <MusicPlayer ref={musicPlayerRef} />
 
       {!isInvitationOpen ? (
-        <OpeningSection onOpenInvitation={handleOpenInvitation} />
+        <OpeningSection guestName={guestName} onOpenInvitation={handleOpenInvitation} />
       ) : (
         <>
           {/* Sections */}
@@ -99,7 +126,7 @@ export default function Home() {
             }`}>
             {/* Cover Section */}
             <div id={SECTION_IDS[0]}>
-              <CoverSection onScrollToNext={handleScrollToNext} />
+              <CoverSection guestName={guestName} onScrollToNext={handleScrollToNext} />
             </div>
 
             {/* Invitation Section */}
@@ -125,7 +152,11 @@ export default function Home() {
               <WeddingGiftSection />
             </div>
             <div id={SECTION_IDS[7]}>
-              <WishesSection />
+              <WishesSection 
+                guestId={guestData?._id}
+                groupId={guestData?.group_id}
+                guestName={guestName}
+              />
             </div>
             <div id={SECTION_IDS[8]} className="pb-0">
               <ClosingSection />
