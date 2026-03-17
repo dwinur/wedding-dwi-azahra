@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         phone: phone, // Saved from CSV
         email: '', // Optional
         address: '', // Optional
-        type: 'CSV_IMPORT',
+        type: guest.type || 'Personal',
         status: 1, // Active
         group_id: 'csv-import-group', // Default group for imported
         pax: 1,

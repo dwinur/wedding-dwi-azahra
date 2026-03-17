@@ -14,7 +14,7 @@ export default function AdminPage() {
     }
   }
 
-  const parseCSV = async (file: File): Promise<{name: string, phone: string}[]> => {
+  const parseCSV = async (file: File): Promise<{name: string, phone: string, type: string}[]> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = (event) => {
@@ -23,7 +23,7 @@ export default function AdminPage() {
           if (!text) return resolve([])
           
           const lines = text.split('\n')
-          const guests: {name: string, phone: string}[] = []
+          const guests: {name: string, phone: string, type: string}[] = []
           
           for (const line of lines) {
             const cleanLine = line.replace(/\r/g, '').replace(/"/g, '').trim()
@@ -32,6 +32,8 @@ export default function AdminPage() {
               const cols = cleanLine.split(',')
               const name = cols[0]?.trim()
               const phone = cols[1]?.trim() || ''
+              const typeRaw = cols[2]?.trim().toLowerCase() || 'personal'
+              const guestType = typeRaw === 'grup' || typeRaw === 'group' ? 'Grup' : 'Personal'
 
               if (name) {
                 // Ensure phone number has country code (assumes Indonesia for now if starting with 0 or 8)
@@ -42,7 +44,7 @@ export default function AdminPage() {
                    formattedPhone = '62' + formattedPhone
                 }
 
-                guests.push({ name, phone: formattedPhone })
+                guests.push({ name, phone: formattedPhone, type: guestType })
               }
             }
           }
@@ -141,11 +143,13 @@ export default function AdminPage() {
           <div className="text-sm text-gray-500 bg-blue-50 p-4 rounded-lg">
             <p className="font-semibold mb-1">Format CSV yang didukung:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Kolom 1: Nama Tamu (Wajib)</li>
-              <li>Kolom 2: Nomor WhatsApp (Opsional, cth: 08123456789 atau 628123456789)</li>
-              <li>Contoh baris: <code>Budi, 08123456789</code></li>
-              <li>Baris judul (seperti "Nama, No WA") akan otomatis diabaikan</li>
-              <li>Satu tamu per baris</li>
+              <li>Kolom 1: Nama Tamu/Grup (Wajib)</li>
+              <li>Kolom 2: Nomor WhatsApp (Opsional, cth: 0812... Kosongkan jika Grup)</li>
+              <li>Kolom 3: Jenis (Opsional, diisi <code>Personal</code> atau <code>Grup</code>. Default: Personal)</li>
+              <li>Contoh baris Personal: <code>Budi, 08123456789, Personal</code></li>
+              <li>Contoh baris Grup: <code>Teman SMA 2012,, Grup</code></li>
+              <li>Baris judul (seperti "Nama, No WA, Tipe") akan otomatis diabaikan</li>
+              <li>Satu tamu/grup per baris</li>
             </ul>
           </div>
 

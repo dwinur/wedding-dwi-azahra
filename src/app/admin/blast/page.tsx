@@ -19,6 +19,10 @@ export default function BlastPage() {
   const [template, setTemplate] = useState(
     `Bismillah,\n\nHalo [NAMA],\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara pernikahan kami.\n\nDetail acara dan lokasi dapat dilihat pada link berikut:\n[LINK]\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir di acara pernikahan kami.\n\nTerima kasih.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh.`
   )
+  const [groupTemplate, setGroupTemplate] = useState(
+    `Bismillah,\n\nHalo teman-teman [NAMA],\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang teman-teman semua untuk hadir dan memberikan doa restu pada acara pernikahan kami.\n\nDetail acara dan lokasi dapat dilihat pada link berikut:\n[LINK]\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila teman-teman berkenan hadir di acara pernikahan kami.\n\nTerima kasih.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh.`
+  )
+  const [activeTab, setActiveTab] = useState<'personal' | 'group'>('personal')
 
   useEffect(() => {
     fetchGuests()
@@ -39,8 +43,9 @@ export default function BlastPage() {
   }
 
   const generateMessage = (guest: Guest) => {
+    const selectedTemplate = guest.type === 'Grup' ? groupTemplate : template
     // Replace variables in template
-    let msg = template.replace(/\[NAMA\]/g, guest.name)
+    let msg = selectedTemplate.replace(/\[NAMA\]/g, guest.name)
     
     // Generate unique link
     // Assuming frontend URL is current origin
@@ -89,25 +94,52 @@ export default function BlastPage() {
           {/* Template Editor */}
           <div className="lg:col-span-1 space-y-4">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full">
-              <h2 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                </svg>
-                Template Pesan
-              </h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="font-bold text-gray-800 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                  </svg>
+                  Template Pesan
+                </h2>
+                <div className="flex bg-gray-100 p-1 rounded-lg">
+                  <button 
+                    onClick={() => setActiveTab('personal')}
+                    className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${activeTab === 'personal' ? 'bg-white shadow text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                  >
+                    Personal
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('group')}
+                    className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${activeTab === 'group' ? 'bg-white shadow text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+                  >
+                    Grup
+                  </button>
+                </div>
+              </div>
+
               <div className="text-sm text-gray-500 bg-blue-50 p-3 rounded-lg mb-4">
                 <strong>Variabel yang tersedia:</strong><br />
-                <code className="bg-white px-1 py-0.5 rounded text-blue-700 font-mono text-xs">[NAMA]</code> - Nama Tamu<br />
+                <code className="bg-white px-1 py-0.5 rounded text-blue-700 font-mono text-xs">[NAMA]</code> - Nama Tamu / Grup<br />
                 <code className="bg-white px-1 py-0.5 rounded text-blue-700 mt-1 inline-block font-mono text-xs">[LINK]</code> - Link Undangan Unik
               </div>
               
-              <textarea
-                value={template}
-                onChange={(e) => setTemplate(e.target.value)}
-                rows={14}
-                className="w-full border border-gray-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"
-                placeholder="Tulis template pesan di sini..."
-              />
+              {activeTab === 'personal' ? (
+                <textarea
+                  value={template}
+                  onChange={(e) => setTemplate(e.target.value)}
+                  rows={14}
+                  className="w-full border border-gray-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"
+                  placeholder="Tulis template pesan personal di sini..."
+                />
+              ) : (
+                <textarea
+                  value={groupTemplate}
+                  onChange={(e) => setGroupTemplate(e.target.value)}
+                  rows={14}
+                  className="w-full border border-gray-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none bg-indigo-50/30"
+                  placeholder="Tulis template pesan grup di sini..."
+                />
+              )}
             </div>
           </div>
 
