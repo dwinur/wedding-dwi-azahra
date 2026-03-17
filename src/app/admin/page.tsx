@@ -14,7 +14,7 @@ export default function AdminPage() {
     }
   }
 
-  const parseCSV = async (file: File): Promise<string[]> => {
+  const parseCSV = async (file: File): Promise<{name: string, phone: string}[]> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = (event) => {
@@ -22,22 +22,31 @@ export default function AdminPage() {
           const text = event.target?.result as string
           if (!text) return resolve([])
           
-          // Split by newline and get names (assuming first or only column is name)
           const lines = text.split('\n')
-          const names: string[] = []
+          const guests: {name: string, phone: string}[] = []
           
           for (const line of lines) {
-            // Remove quotes, carriage returns, and trim
-            const cleanLine = line.replace(/r/g, '').replace(/"/g, '').trim()
-            if (cleanLine && cleanLine.toLowerCase() !== 'name' && cleanLine.toLowerCase() !== 'nama') {
-              // If it's a CSV with multiple columns separated by comma, take the first one
-              const firstCol = cleanLine.split(',')[0].trim()
-              if (firstCol) {
-                names.push(firstCol)
+            const cleanLine = line.replace(/\r/g, '').replace(/"/g, '').trim()
+            if (cleanLine && cleanLine.toLowerCase() !== 'name' && !cleanLine.toLowerCase().startsWith('name,')) {
+              
+              const cols = cleanLine.split(',')
+              const name = cols[0]?.trim()
+              const phone = cols[1]?.trim() || ''
+
+              if (name) {
+                // Ensure phone number has country code (assumes Indonesia for now if starting with 0 or 8)
+                let formattedPhone = phone
+                if (formattedPhone.startsWith('0')) {
+                   formattedPhone = '62' + formattedPhone.substring(1)
+                } else if (formattedPhone.startsWith('8')) {
+                   formattedPhone = '62' + formattedPhone
+                }
+
+                guests.push({ name, phone: formattedPhone })
               }
             }
           }
-          resolve(names)
+          resolve(guests)
         } catch (error) {
           reject(error)
         }
@@ -62,10 +71,10 @@ export default function AdminPage() {
     setResult(null)
 
     try {
-      const names = await parseCSV(file)
+      const guests = await parseCSV(file)
       
-      if (names.length === 0) {
-        throw new Error('Tidak ada nama valid ditemukan di dalam file')
+      if (guests.length === 0) {
+        throw new Error('Tidak ada data valid ditemukan di dalam file')
       }
 
       // Send to API
@@ -74,7 +83,7 @@ export default function AdminPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ names }),
+        body: JSON.stringify({ guests }),
       })
 
       const data = await response.json()
@@ -85,7 +94,7 @@ export default function AdminPage() {
 
       setResult({ 
         message: 'Berhasil mengupload tamu!', 
-        count: data.insertedCount || names.length 
+        count: data.insertedCount || guests.length 
       })
       setFile(null)
       
@@ -103,7 +112,12 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Admin - Import Tamu CSV</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Admin - Import Tamu CSV</h1>
+          <a href="/admin/blast" className="text-sm font-medium text-blue-600 hover:text-blue-800 bg-blue-50 px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+            Ke WA Blast &rarr;
+          </a>
+        </div>
         
         <div className="space-y-6">
           <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:bg-gray-50 transition-colors">
@@ -127,9 +141,11 @@ export default function AdminPage() {
           <div className="text-sm text-gray-500 bg-blue-50 p-4 rounded-lg">
             <p className="font-semibold mb-1">Format CSV yang didukung:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Paling tidak satu kolom berisi nama tamu</li>
-              <li>Baris judul (seperti "Nama") akan otomatis diabaikan</li>
-              <li>Satu nama per baris</li>
+              <li>Kolom 1: Nama Tamu (Wajib)</li>
+              <li>Kolom 2: Nomor WhatsApp (Opsional, cth: 08123456789 atau 628123456789)</li>
+              <li>Contoh baris: <code>Budi, 08123456789</code></li>
+              <li>Baris judul (seperti "Nama, No WA") akan otomatis diabaikan</li>
+              <li>Satu tamu per baris</li>
             </ul>
           </div>
 

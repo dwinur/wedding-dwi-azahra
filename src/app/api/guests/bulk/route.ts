@@ -4,11 +4,11 @@ import { v4 as uuidv4 } from 'uuid'
 
 export async function POST(req: Request) {
   try {
-    const { names } = await req.json()
+    const { guests } = await req.json()
 
-    if (!Array.isArray(names) || names.length === 0) {
+    if (!Array.isArray(guests) || guests.length === 0) {
       return NextResponse.json(
-        { message: 'Names array is required and cannot be empty' },
+        { message: 'Guests array is required and cannot be empty' },
         { status: 400 }
       )
     }
@@ -26,10 +26,11 @@ export async function POST(req: Request) {
     const newGuests = []
     const now = new Date()
 
-    for (const name of names) {
-      if (!name || typeof name !== 'string') continue
+    for (const guest of guests) {
+      if (!guest || !guest.name || typeof guest.name !== 'string') continue
       
-      const cleanName = name.trim()
+      const cleanName = guest.name.trim()
+      const phone = guest.phone ? guest.phone.trim() : ''
       
       if (existingNames.has(cleanName.toLowerCase())) {
         skippedCount++
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
       newGuests.push({
         id: uuidv4(),
         name: cleanName,
-        phone: '', // Optional
+        phone: phone, // Saved from CSV
         email: '', // Optional
         address: '', // Optional
         type: 'CSV_IMPORT',
@@ -64,7 +65,7 @@ export async function POST(req: Request) {
       message: 'Processing complete',
       insertedCount,
       skippedCount,
-      totalProcessed: names.length
+      totalProcessed: guests.length
     }, { status: 200 })
 
   } catch (error: any) {
