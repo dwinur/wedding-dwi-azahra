@@ -41,8 +41,8 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
 
     try {
       await createWish.mutateAsync([{
-        guest_id: guestId || '',
-        group_id: groupId || '',
+        guest_id: guestId || null,
+        group_id: groupId || null,
         name: name.trim(),
         description: message.trim(),
         status: status,

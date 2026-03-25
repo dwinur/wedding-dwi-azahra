@@ -11,15 +11,23 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const body = await req.json()
-  const wishes = await WishesModel()
+  try {
+    const body = await req.json()
+    const wishes = await WishesModel()
 
-  await wishes.insertOne({
-    ...body,
-    guest_id: new ObjectId(body.guest_id),
-    group_id: new ObjectId(body.group_id),
-    created_at: new Date(),
-  })
+    await wishes.insertOne({
+      ...body,
+      guest_id: body.guest_id ? new ObjectId(body.guest_id) : null,
+      group_id: body.group_id ? new ObjectId(body.group_id) : null,
+      created_at: new Date(),
+    })
 
-  return NextResponse.json({ status: 204 })
+    return NextResponse.json({ status: 204 })
+  } catch (error) {
+    console.error('Error creating wish:', error)
+    return NextResponse.json(
+      { error: 'Failed to create wish' },
+      { status: 500 },
+    )
+  }
 }

@@ -10,8 +10,8 @@ namespace WishesDto {
   }
 
   export interface CreateWish {
-    guest_id: string
-    group_id: string
+    guest_id: string | null
+    group_id: string | null
     name: string
     description: string
     status: number
