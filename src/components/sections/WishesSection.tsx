@@ -39,16 +39,10 @@ export function WishesSection({ guestId, groupId, guestName }: WishesSectionProp
       return
     }
 
-    if (!guestId || !groupId) {
-      alert('Terima kasih atas ucapannya!')
-      setMessage('')
-      return
-    }
-
     try {
       await createWish.mutateAsync([{
-        guest_id: guestId,
-        group_id: groupId,
+        guest_id: guestId || '',
+        group_id: groupId || '',
         name: name.trim(),
         description: message.trim(),
         status: status,

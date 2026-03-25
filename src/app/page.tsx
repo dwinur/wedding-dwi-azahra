@@ -49,16 +49,19 @@ function HomeContent() {
 
   const visitMutation = GuestsService.VisitGuest.useMutation()
   const [guestData, setGuestData] = useState<any>(null)
+  const visitCalled = useRef(false)
 
   useEffect(() => {
-    if (guestParam && !guestData && !visitMutation.isPending) {
+    if (guestParam && !visitCalled.current) {
+      visitCalled.current = true
       visitMutation.mutateAsync([{ name: guestParam }])
         .then((res: any) => {
-          if (res?.data) setGuestData(res.data)
+          if (res) setGuestData(res)
         })
         .catch(console.error)
     }
-  }, [guestParam, guestData, visitMutation])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guestParam])
 
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true)
@@ -153,8 +156,8 @@ function HomeContent() {
             </div>
             <div id={SECTION_IDS[7]}>
               <WishesSection 
-                guestId={guestData?._id}
-                groupId={guestData?.group_id}
+                guestId={guestData?.id}
+                groupId={guestData?.groupId}
                 guestName={guestName}
               />
             </div>

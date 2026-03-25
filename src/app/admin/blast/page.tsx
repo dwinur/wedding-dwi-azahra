@@ -23,6 +23,12 @@ export default function BlastPage() {
     `Bismillah,\n\nHalo teman-teman [NAMA],\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang teman-teman semua untuk hadir dan memberikan doa restu pada acara pernikahan kami.\n\nDetail acara dan lokasi dapat dilihat pada link berikut:\n[LINK]\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila teman-teman berkenan hadir di acara pernikahan kami.\n\nTerima kasih.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh.`
   )
   const [activeTab, setActiveTab] = useState<'personal' | 'group'>('personal')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredGuests = guests.filter(guest => 
+    guest.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    (guest.phone && guest.phone.includes(searchTerm))
+  )
 
   useEffect(() => {
     fetchGuests()
@@ -146,18 +152,32 @@ export default function BlastPage() {
           {/* Guest List */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white">
+              <div className="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white">
                 <h2 className="font-bold text-gray-800 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                   </svg>
-                  Daftar Tamu ({guests.length})
+                  Daftar Tamu ({filteredGuests.length})
                 </h2>
-                <button onClick={fetchGuests} className="text-gray-400 hover:text-gray-600 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                </button>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <div className="relative flex-1 sm:w-64">
+                    <input
+                      type="search"
+                      placeholder="Cari nama atau nomor..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <button onClick={fetchGuests} className="text-gray-400 hover:text-gray-600 transition-colors p-2 bg-gray-50 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </button>
+                </div>
               </div>
               
               <div className="overflow-x-auto">
@@ -177,15 +197,15 @@ export default function BlastPage() {
                           Memuat data...
                         </td>
                       </tr>
-                    ) : guests.length === 0 ? (
+                    ) : filteredGuests.length === 0 ? (
                       <tr>
                         <td colSpan={4} className="px-6 py-12 text-center text-gray-400">
-                          Belum ada data tamu. 
-                          <Link href="/admin" className="text-blue-500 hover:underline ml-1">Import via CSV sekarang</Link>
+                          {searchTerm ? 'Tamu tidak ditemukan.' : 'Belum ada data tamu. '}
+                          {!searchTerm && <Link href="/admin" className="text-blue-500 hover:underline ml-1">Import via CSV sekarang</Link>}
                         </td>
                       </tr>
                     ) : (
-                      guests.map((guest) => (
+                      filteredGuests.map((guest) => (
                         <tr key={guest._id} className="hover:bg-gray-50 transition-colors">
                           <td className="px-6 py-4 font-medium text-gray-800">{guest.name}</td>
                           <td className="px-6 py-4">
