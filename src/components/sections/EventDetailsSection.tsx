@@ -135,7 +135,7 @@ export function EventDetailsSection() {
               className="text-2xl md:text-3xl text-[#16407F] font-bold"
               style={{ fontFamily: 'var(--font-caveat-brush), sans-serif' }}
             >
-              09.00 AM
+              09.00 AM - 11.00 AM
             </span>
           </div>
 
@@ -151,7 +151,7 @@ export function EventDetailsSection() {
               className="text-2xl md:text-3xl text-[#16407F] font-bold"
               style={{ fontFamily: 'var(--font-caveat-brush), sans-serif' }}
             >
-              11.00 AM
+              11.00 AM - 13.00 PM
             </span>
           </div>
         </div>
